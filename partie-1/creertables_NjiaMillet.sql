@@ -1,19 +1,19 @@
 -- =============================================
 -- * Nettoyage des tables avec leurs références
 -- =============================================
-drop table if exists contacts cascade;
+drop table if exists contact cascade;
 drop table if exists animal cascade;
-drop table if exists sorties cascade;
-drop table if exists entrees cascade;
+drop table if exists sortie cascade;
+drop table if exists entree cascade;
 drop table if exists couleurs cascade;
 drop table if exists couleurs_animal cascade;
-drop table if exists compatibilites cascade;
-drop table if exists adoptions cascade;
-drop table if exists vaccins cascade;
+drop table if exists compatibilite cascade;
+drop table if exists adoption cascade;
+drop table if exists vaccin cascade;
 drop table if exists roles cascade;
-drop table if exists appariements cascade;
-drop table if exists accueils cascade;
-drop table if exists vaccinations cascade;
+drop table if exists animal_compatibilite cascade;
+drop table if exists accueil cascade;
+drop table if exists vaccination cascade;
 drop table if exists roles_contact cascade;
 
 -- ============================================
@@ -30,13 +30,13 @@ drop type if exists type_roles cascade;
 -- ===========================================
 -- * Nettoyage des triggers  des contraintes
 -- ===========================================
-drop trigger if exists trig_check_date_vaccination on vaccinations cascade;
-drop trigger if exists trig_check_unique_sortie on sorties cascade;
+drop trigger if exists trig_check_date_vaccination on vaccination cascade;
+drop trigger if exists trig_check_unique_sortie on sortie cascade;
 drop trigger if exists trig_check_deces_animal on animal cascade;
-drop trigger if exists trig_check_sortie_deces on sorties cascade;
-drop trigger if exists trig_check_animal_entree on entrees cascade;
-drop trigger if exists trig_check_adoption_sortie on sorties cascade;
-drop trigger if exists trig_check_unique_accueil_actif on sorties cascade;
+drop trigger if exists trig_check_sortie_deces on sortie cascade;
+drop trigger if exists trig_check_animal_entree on entree cascade;
+drop trigger if exists trig_check_adoption_sortie on sortie cascade;
+drop trigger if exists trig_check_unique_accueil_actif on sortie cascade;
 
 -- ===========================================
 -- * Création des types pour la gestion refuge
@@ -90,7 +90,7 @@ create type type_roles as enum (
 -- =============================================
 -- * Création des tables pour la gestion refuge
 -- =============================================
-create table contacts (
+create table contact (
 	id_contact integer generated always as identity primary key,
 	nom varchar(20),
 	prenom varchar(20),
@@ -102,241 +102,234 @@ create table contacts (
 
 	--* Format valide d'un registre national : yy.mm.dd-999.99
 	constraint check_format_registre
-    check (registre_national ~ '^[0-9]{2}\.[0-9]{2}\.[0-9]{2}-[0-9]{3}\.[0-9]{2}$'),
+    	check (registre_national ~ '^[0-9]{2}\.[0-9]{2}\.[0-9]{2}-[0-9]{3}\.[0-9]{2}$'),
 
 	-- Format valide du nom (au moins 2 caractères)
 	constraint check_nom
-	check (
+		check (
 			char_length(trim(nom)) >= 2 and
 			nom ~ '^[A-Za-zÀ-ÿ]+([\- ][A-Za-zÀ-ÿ]+)*$'
-	),
+		),
 
-	-- Format valide du nom (au moins 2 caractères)
+	-- Format valide du prenom (au moins 2 caractères)
 	constraint check_prenom
-	check (
+		check (
 			char_length(trim(prenom)) >= 2 and
 			prenom ~ '^[A-Za-zÀ-ÿ]+([\- ][A-Za-zÀ-ÿ]+)*$'
-	),
+		),
 
 	-- * Au moins un moyen de contact : gsm OR telephone OR email NOT NULL
     constraint check_contact_obligatoire
-    check (
-        gsm is not null or
-        telephone is not null or
-        email is not null
-    ),
+    	check (
+        	gsm is not null or
+        	telephone is not null or
+        	email is not null
+    	),
 
 	-- * Format valide d'une email
     constraint check_format_email
-    check (
-        email is null or
-        email ~ '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$'
-    )
+    	check (
+        	email is null or
+        	email ~ '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$'
+    	)
 );
 
 create table animal (
 	id_animal varchar(11) primary key,
-	nom_animal varchar(15) not null,
-	sexe genre not null,
+	nom varchar(15) not null,
+	sexe genre,
 	animal type_animal not null,
-	date_naissance date not null,
+	date_naissance date,
 	date_deces date,
-	sterilise boolean not null,
+	sterilise boolean default false,
 	date_sterilisation date,
-	description varchar(50) not null,
-	particularites varchar(50) not null,
+	description varchar(50),
+	particularites varchar(50),
 
 	-- * id_animal: format valide yymmdd99999 (11 caractères)
     constraint check_identifiant
-	check (id_animal ~ '^[0-9]{11}$'
-    and to_char(to_date(substr(id_animal,1,6),'YYMMDD'),'YYMMDD') = substr(id_animal,1,6)),
+		check (id_animal ~ '^[0-9]{11}$'
+    		and to_char(to_date(substr(id_animal,1,6),'YYMMDD'),'YYMMDD') = substr(id_animal,1,6)),
 
     -- * Si l’animal n’est pas stérilisé alors la date de stérilisation est nulle
     constraint check_sterilisation
-    check (sterilise = TRUE or date_sterilisation is null),
+    	check (sterilise = true or date_sterilisation is null),
 
     -- * La date de stérilisation est soit nulle ou soit supérieure à sa date de naissance
     constraint check_date_sterilisation
-    check (date_sterilisation is null or date_sterilisation > date_naissance),
+    	check (date_sterilisation is null or date_sterilisation > date_naissance),
 
     -- * Date de décès d’un animal est soit nulle ou soit supérieure à sa date de naissance
     constraint check_date_deces
-    check (date_deces is null or date_deces > date_naissance),
+    	check (date_deces is null or date_deces > date_naissance),
 
     -- * Date de naissance doit être inférieure ou égal à la date courante
     constraint check_date_naissance
-    check (date_naissance <= current_date)
+    	check (date_naissance <= current_date)
 );
 
-create table sorties (
-    motif motifs_sortie not null,
+create table sortie (
 	date_sortie date not null,
-	id_animal_sorti varchar(11) not null,
-    sortie_contact integer,
+	motif motifs_sortie not null,
+	id_animal varchar(11) not null,
+    id_contact integer,
 
-    constraint pk_sorties
-    primary key (date_sortie, id_animal_sorti, sortie_contact),
+    constraint pk_sortie primary key (date_sortie, id_animal, id_contact),
 
-    constraint fk_id_animal_sorti
-    foreign key (id_animal_sorti)
-    references animal(id_animal)
-    on delete cascade,
+    constraint fk_sortie_id_animal foreign key (id_animal)
+    	references animal(id_animal)
+    	on delete cascade,
 
-    constraint fk_sortie_contact
-    foreign key (sortie_contact)
-    references contacts(id_contact)
-    on delete set null
+    constraint fk_sortie_contact foreign key (id_contact)
+    	references contact(id_contact)
+    	on delete cascade
 );
 
-create table entrees (
-    motif motifs_entree not null,
-	date_entree date not null,
-	id_animal_entre varchar(11) not null,
-    entree_contact integer,
+create table entree (
+    date_entree date not null,
+	motif motifs_entree not null,
+	id_animal varchar(11) not null,
+    id_contact integer,
 
     -- Définition des contraintes
-    constraint pk_entrees
-    primary key (date_entree, id_animal_entre, entree_contact),
+    constraint pk_entree primary key (date_entree, id_animal, id_contact),
 
-    constraint fk_id_animal_entre
-    foreign key (id_animal_entre)
-    references animal(id_animal)
-    on delete cascade,
+    constraint fk_entree_id_animal foreign key (id_animal)
+    	references animal(id_animal)
+    	on delete cascade,
 
-    constraint fk_entree_contact
-    foreign key (entree_contact)
-    references contact(id_contact)
-    on delete set null
+    constraint fk_entree_id_contact foreign key (id_contact)
+    	references contact(id_contact)
+    	on delete cascade
 );
 
 create table couleurs (
 	id_couleur integer generated always as identity primary key,
-	nom_couleur varchar(20) not null
+	nom varchar(20) not null,
+
+	constraint uq_couleur_nom unique (nom)
 );
 
 create table couleurs_animal (
-	id_couleurs_animal integer generated always as identity primary key,
-	id_animal varchar(11) not null
+	id_couleur int,
+	id_animal varchar(11) not null,
+
+	constraint pk_couleurs_animal primary key (id_animal, id_couleur),
+
+    constraint fk_ca_animal foreign key (id_animal)
+    	references animal(id_animal)
+    	on delete cascade,
+
+    constraint fk_ca_couleur foreign key (id_couleur)
+    	references couleurs(id_couleur)
+    	on delete cascade
 );
 
-create table compatibilites (
+create table compatibilite (
 	id_compatibilite integer generated always as identity primary key,
 	animal type_animal not null
 );
 
-create table adoptions (
-	statut statut_adoption not null,
+create table adoption (
+	statut statut_adoption,
 	date_adoption date not null,
-	id_animal_adopte char(11) not null,
-	adoptant integer not null,
+	id_animal char(11),
+	id_contact integer,
 
 	-- Définitions des contraintes
-	constraint pk_adoptions
-    primary key (date_adoption, id_animal_adopte, adoptant),
+	constraint pk_adoption primary key (date_adoption, id_animal, id_contact),
 
-	constraint fk_id_animal_adopte
-    foreign key (id_animal_adopte)
-    references animal(id_animal)
-    on delete cascade,
+	constraint fk_adoption_id_animal foreign key (id_animal)
+    	references animal(id_animal)
+    	on delete cascade,
 
-    constraint fk_adoptant
-    foreign key (adoptant)
-    references contact(id_contact)
-    on delete set null
+    constraint fk__adoption_id_contact foreign key (id_contact)
+    	references contact(id_contact)
+    	on delete cascade
 );
 
-create table vaccins (
+create table vaccin (
 	id_vaccin integer generated always as identity primary key,
-	nom_vaccin varchar(20)
+	nom varchar(20) not null,
+
+	constraint uq_vaccin_nom unique (nom)
 );
 
-create table appariements (
+create table animal_compatibilite (
+	id_animal char(11),
+	id_compatibilite integer,
 	valeur boolean not null,
-	description text not null,
-	id_compatibilite_appar integer not null,
-	id_animal_teste char(11) not null,
+	description text,
 
 	-- Définitions des contraintes
-	constraint pk_appariements
-    primary key (id_compatibilite_appar, id_animal_teste),
+	constraint pk_animal_compatibilite primary key (id_compatibilite, id_animal),
 
-	constraint fk_ani_identifiant
-    foreign key (id_animal_teste)
-    references animal (id_animal)
-    on delete cascade,
+	constraint fk_anicomp_animal foreign key (id_animal)
+    	references animal (id_animal)
+    	on delete cascade,
 
-    constraint fk_id_compatibilite_appar
-    foreign key (id_compatibilite_appar)
-    references compatibilites (id_compatibilite)
-    on delete set null
+    constraint fk_anicomp_compatibilite foreign key (id_compatibilite)
+    	references compatibilite (id_compatibilite)
+    	on delete cascade
 );
 
-create table accueils (
-	date_debut date,
+create table accueil (
+	date_debut date not null,
 	date_fin date,
-	id_animal_accueilli char(11),
-	id_accueillant integer,
+	id_animal char(11),
+	id_contact integer,
 
 	-- Définitions des contraintes
-	constraint pk_accueils
-    primary key (id_animal_accueilli, id_accueillant),
+	constraint pk_accueil primary key (id_animal, id_contact),
 
-	constraint fk_id_animal_accueilli
-    foreign key (id_animal_accueilli)
-    references animal(id_animal)
-    on delete cascade,
+	constraint fk_accueil_id_animal foreign key (id_animal)
+    	references animal(id_animal)
+    	on delete cascade,
 
-    constraint fk_id_accueillant
-    foreign key (id_accueillant)
-    references contact(id_contact)
-    on delete set null,
+    constraint fk_accueil_id_contact foreign key (id_contact)
+    	references contact(id_contact)
+    	on delete set null,
 
 	constraint check_date_fin
-    check (date_fin >= date_debut)
+    	check (date_fin >= date_debut)
 );
 
-create table vaccinations (
+create table vaccination (
 	date_vaccination date,
-	id_animal_vaccine varchar(11),
-	id_vaccin_utilise integer,
+	id_animal varchar(11),
+	id_vaccin integer,
 
 	-- Définitions des contraintes
-	constraint pk_vaccinations
-    primary key (date_vaccination, id_animal_vaccine, id_vaccin_utilise),
+	constraint pk_vaccination primary key (date_vaccination, id_animal, id_vaccin),
 
-	constraint fk_id_animal_vaccine
-    foreign key (id_animal_vaccine)
-    references animal(id_animal)
-    on delete cascade,
+	constraint fk_vac_id_animal foreign key (id_animal)
+    	references animal(id_animal)
+    	on delete cascade,
 
-    constraint fk_id_vaccin_utilise
-    foreign key (id_vaccin_utilise)
-    references vaccins(id_vaccin)
-    on delete set null
+    constraint fk_vac_id_vaccin foreign key (id_vaccin)
+    	references vaccin(id_vaccin)
+    	on delete cascade
 );
 
 create table roles (
 	id_roles integer generated always as identity primary key,
-	rol type_roles
+	nom type_roles
 );
 
 create table roles_contact (
-	id_role_contact integer,
+	id_contact integer,
 	id_role integer,
 
 	-- Définitions des contraintes
-	constraint pk_roles_contact
-    primary key (id_role_contact, id_role),
+	constraint pk_roles_contact primary key (id_contact, id_role),
 
-	constraint fk_id_role_contact
-    foreign key (id_role_contact)
-    references contacts(id_contact)
-    on delete cascade,
+	constraint fk_role_contact foreign key (id_contact)
+    	references contact(id_contact)
+    	on delete cascade,
 
-    constraint fk_id_role
-    foreign key (id_role)
-    references roles(id_roles)
-    on delete set null
+    constraint fk_id_role foreign key (id_role)
+    	references roles(id_roles)
+    	on delete cascade
 );
 
 -- ==================================================
@@ -364,7 +357,7 @@ end;
 $$ language plpgsql;
 
 create trigger trig_check_date_vaccination
-before insert or update on vaccinations
+before insert or update on vaccination
 for each row
 execute function check_date_vaccination();
 
@@ -377,13 +370,13 @@ begin
     -- la dernière date d'entrée
     select max(date_entree)
     into derniere_entree
-    from entrees
+    from entree
     where id_animal_sorti = new.ani_identifiant;
 
     -- Lève une exception s’il existe déjà une sortie après cette entrée
     if exists (
         select 1
-        from sorties
+        from sortie
         where id_animal_sorti = new.ani_identifiant
         and date_sortie > derniere_entree
     ) then
@@ -396,7 +389,7 @@ end;
 $$ language plpgsql;
 
 create trigger trig_check_unique_sortie
-before insert on sorties
+before insert on sortie
 for each row
 execute function check_unique_sortie();
 
@@ -411,7 +404,7 @@ begin
         -- récupérer la dernière raison de sortie
         select motif
         into motif_sortie_animal
-        from sorties
+        from sortie
         where id_animal_sorti = new.id_animal
         order by date_sortie desc
         limit 1;
@@ -454,7 +447,7 @@ end;
 $$ language plpgsql;
 
 create trigger trig_check_sortie_deces
-before insert or update on sorties
+before insert or update on sortie
 for each row
 execute function check_sortie_deces();
 
@@ -464,7 +457,7 @@ returns trigger as $$
 begin
     if not exists (
         select 1
-        from entrees
+        from entree
         where id_animal_entre = new.id_animal
     ) then
         raise exception
@@ -489,7 +482,7 @@ begin
     if new.motif = 'adoption' then
         if not exists (
             select 1
-            from adoptions
+            from adoption
             where id_animal_adopte = new.ani_identifiant
             and statut = 'acceptee'
         ) then
@@ -503,7 +496,7 @@ end;
 $$ language plpgsql;
 
 create trigger trig_check_adoption_sortie
-before insert or update on sorties
+before insert or update on sortie
 for each row
 execute function check_adoption_sortie();
 
@@ -515,7 +508,7 @@ begin
     if new.date_fin is null then
         if exists (
             select 1
-            from accueils
+            from accueil
             where id_animal_accueilli = new.ani_identifiant
             and date_fin is null
         ) then
@@ -529,6 +522,6 @@ end;
 $$ language plpgsql;
 
 create trigger trig_check_unique_accueil_actif
-before insert or update on accueils
+before insert or update on accueil
 for each row
 execute function check_unique_accueil_actif();

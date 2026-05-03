@@ -1,0 +1,15 @@
+C:\Users\Millet\Documents\IPEPS\Bloc 3\Projet de développement SGBD\Travaux\Travail2\Projet_Developpement-SGBD\partie-1\RefugeAnimaux\RefugeAnimaux\obj\Debug\net8.0\RefugeAnimaux.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Millet\Documents\IPEPS\Bloc 3\Projet de développement SGBD\Travaux\Travail2\Projet_Developpement-SGBD\partie-1\RefugeAnimaux\RefugeAnimaux\obj\Debug\net8.0\RefugeAnimaux.AssemblyInfoInputs.cache
+C:\Users\Millet\Documents\IPEPS\Bloc 3\Projet de développement SGBD\Travaux\Travail2\Projet_Developpement-SGBD\partie-1\RefugeAnimaux\RefugeAnimaux\obj\Debug\net8.0\RefugeAnimaux.AssemblyInfo.cs
+C:\Users\Millet\Documents\IPEPS\Bloc 3\Projet de développement SGBD\Travaux\Travail2\Projet_Developpement-SGBD\partie-1\RefugeAnimaux\RefugeAnimaux\obj\Debug\net8.0\RefugeAnimaux.csproj.CoreCompileInputs.cache
+C:\Users\Millet\Documents\IPEPS\Bloc 3\Projet de développement SGBD\Travaux\Travail2\Projet_Developpement-SGBD\partie-1\RefugeAnimaux\RefugeAnimaux\obj\Debug\net8.0\RefugeAnimaux.sourcelink.json
+C:\Users\Millet\Documents\IPEPS\Bloc 3\Projet de développement SGBD\Travaux\Travail2\Projet_Developpement-SGBD\partie-1\RefugeAnimaux\RefugeAnimaux\bin\Debug\net8.0\RefugeAnimaux.exe
+C:\Users\Millet\Documents\IPEPS\Bloc 3\Projet de développement SGBD\Travaux\Travail2\Projet_Developpement-SGBD\partie-1\RefugeAnimaux\RefugeAnimaux\bin\Debug\net8.0\RefugeAnimaux.deps.json
+C:\Users\Millet\Documents\IPEPS\Bloc 3\Projet de développement SGBD\Travaux\Travail2\Projet_Developpement-SGBD\partie-1\RefugeAnimaux\RefugeAnimaux\bin\Debug\net8.0\RefugeAnimaux.runtimeconfig.json
+C:\Users\Millet\Documents\IPEPS\Bloc 3\Projet de développement SGBD\Travaux\Travail2\Projet_Developpement-SGBD\partie-1\RefugeAnimaux\RefugeAnimaux\bin\Debug\net8.0\RefugeAnimaux.dll
+C:\Users\Millet\Documents\IPEPS\Bloc 3\Projet de développement SGBD\Travaux\Travail2\Projet_Developpement-SGBD\partie-1\RefugeAnimaux\RefugeAnimaux\bin\Debug\net8.0\RefugeAnimaux.pdb
+C:\Users\Millet\Documents\IPEPS\Bloc 3\Projet de développement SGBD\Travaux\Travail2\Projet_Developpement-SGBD\partie-1\RefugeAnimaux\RefugeAnimaux\obj\Debug\net8.0\RefugeAnimaux.dll
+C:\Users\Millet\Documents\IPEPS\Bloc 3\Projet de développement SGBD\Travaux\Travail2\Projet_Developpement-SGBD\partie-1\RefugeAnimaux\RefugeAnimaux\obj\Debug\net8.0\refint\RefugeAnimaux.dll
+C:\Users\Millet\Documents\IPEPS\Bloc 3\Projet de développement SGBD\Travaux\Travail2\Projet_Developpement-SGBD\partie-1\RefugeAnimaux\RefugeAnimaux\obj\Debug\net8.0\RefugeAnimaux.pdb
+C:\Users\Millet\Documents\IPEPS\Bloc 3\Projet de développement SGBD\Travaux\Travail2\Projet_Developpement-SGBD\partie-1\RefugeAnimaux\RefugeAnimaux\obj\Debug\net8.0\RefugeAnimaux.genruntimeconfig.cache
+C:\Users\Millet\Documents\IPEPS\Bloc 3\Projet de développement SGBD\Travaux\Travail2\Projet_Developpement-SGBD\partie-1\RefugeAnimaux\RefugeAnimaux\obj\Debug\net8.0\ref\RefugeAnimaux.dll
