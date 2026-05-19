@@ -2,38 +2,52 @@
 
 class Accueil
 {
-	// les propriétés
-	public DateOnly DateDebut { get; set; }
-	public DateOnly DateFin { get; set; }
-	public Animal animalAccueilli;
-	public Contact familleAccueil;
+    private DateOnly? dateFin;
 
-	public Accueil ()
-	{
-        animalAccueilli = new Animal();
-        familleAccueil = new Contact ();
+    public DateOnly DateDebut { get; set; }
+
+    public DateOnly? DateFin
+    {
+        get { return dateFin; }
+
+        set
+        {
+            if (value != null && value < DateDebut)
+                throw new ArgumentException("Date de fin invalide.");
+            
+            dateFin = value;
+        }
     }
 
-    public Accueil ( DateOnly dateDebut, DateOnly dateFin, string idAnimal, int idContact)
+    // Clés étrangères SQL
+    public string IdAnimal => AnimalAccueilli?.IdAnimal ?? "";
+    public int IdContact => FamilleAccueil?.IdContact ?? 0;
+
+    public Animal AnimalAccueilli { get; set; }
+
+    public Contact FamilleAccueil { get; set; }
+
+    public Accueil()
     {
-        animalAccueilli = new Animal();
-        familleAccueil = new Contact();
-        animalAccueilli.IdAnimal = idAnimal;
-        familleAccueil.IdContact = idContact;
+        AnimalAccueilli = new Animal();
+        FamilleAccueil = new Contact();
+    }
+
+    public Accueil(DateOnly dateDebut,  DateOnly? dateFin, Animal animal, Contact contact)
+    {
         DateDebut = dateDebut;
         DateFin = dateFin;
+        AnimalAccueilli = animal ?? throw new ArgumentNullException(nameof(animal));
+        FamilleAccueil = contact ?? throw new ArgumentNullException(nameof(contact));
     }
 
     public Accueil(Accueil accueil)
     {
-        if (accueil == null)
-            ArgumentNullException.ThrowIfNull(accueil);
+        ArgumentNullException.ThrowIfNull(accueil);
 
-        animalAccueilli = new Animal();
-        familleAccueil = new Contact();
-        animalAccueilli.IdAnimal = accueil.animalAccueilli.IdAnimal;
-        familleAccueil.IdContact = accueil.familleAccueil.IdContact;
         DateDebut = accueil.DateDebut;
         DateFin = accueil.DateFin;
+        AnimalAccueilli = new Animal(accueil.AnimalAccueilli);
+        FamilleAccueil = new Contact(accueil.FamilleAccueil);
     }
 }

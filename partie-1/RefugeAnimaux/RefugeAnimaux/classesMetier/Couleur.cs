@@ -2,14 +2,9 @@
 
 class Couleur
 {
-	private int idCouleur;
 	private string nom = string.Empty;
 
-	public int IdCouleur 
-	{
-		set { this.idCouleur = value; }
-		get { return this.idCouleur; }
-	}
+	public int IdCouleur { get; set; }
 
     public string Nom
     {
@@ -27,16 +22,15 @@ class Couleur
 
 	public Couleur(int idCouleur, string nom)
 	{
-		this.idCouleur = idCouleur;
-		this.nom = nom;
+		IdCouleur = idCouleur;
+		Nom = nom;
 	}
 
 	public Couleur (Couleur couleur) 
 	{
-        if (couleur == null)
-            throw new ArgumentNullException(nameof(couleur));
+        ArgumentNullException.ThrowIfNull(couleur);
 
-        this.idCouleur = couleur.idCouleur;
-		this.nom = couleur.nom;
+        IdCouleur = couleur.IdCouleur;
+		Nom = couleur.Nom;
 	}
 }

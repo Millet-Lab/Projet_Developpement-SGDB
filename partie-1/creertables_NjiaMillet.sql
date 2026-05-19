@@ -26,6 +26,7 @@ drop type if exists motifs_sortie cascade;
 drop type if exists motifs_entree cascade;
 drop type if exists statut_adoption cascade;
 drop type if exists type_roles cascade;
+drop type if exists type_valeur cascade;
 
 -- ===========================================
 -- * Nettoyage des triggers  des contraintes
@@ -87,13 +88,19 @@ create type type_roles as enum (
 	'Famille_accueil'
 );
 
+create type type_valeur as enum (
+	'oui',
+	'non',
+	'non_teste'
+);
+
 -- =============================================
 -- * Création des tables pour la gestion refuge
 -- =============================================
 create table contact (
 	id_contact integer generated always as identity primary key,
-	nom varchar(20),
-	prenom varchar(20),
+	nom varchar(20) not null,
+	prenom varchar(20) not null,
 	adresse type_adresse,
 	registre_national varchar(15) unique,
 	gsm char(10),
@@ -137,9 +144,9 @@ create table contact (
 create table animal (
 	id_animal varchar(11) primary key,
 	nom varchar(15) not null,
-	sexe genre,
-	animal type_animal not null,
-	date_naissance date,
+	sexe genre not null,
+	ani_type type_animal not null,
+	date_naissance date not null,
 	date_deces date,
 	sterilise boolean default false,
 	date_sterilisation date,
@@ -258,7 +265,7 @@ create table vaccin (
 create table animal_compatibilite (
 	id_animal char(11),
 	id_compatibilite integer,
-	valeur boolean not null,
+	valeur type_valeur not null,
 	description text,
 
 	-- Définitions des contraintes
@@ -280,7 +287,7 @@ create table accueil (
 	id_contact integer,
 
 	-- Définitions des contraintes
-	constraint pk_accueil primary key (id_animal, id_contact),
+	constraint pk_accueil primary key (date_debut, id_animal, id_contact),
 
 	constraint fk_accueil_id_animal foreign key (id_animal)
     	references animal(id_animal)
@@ -288,7 +295,7 @@ create table accueil (
 
     constraint fk_accueil_id_contact foreign key (id_contact)
     	references contact(id_contact)
-    	on delete set null,
+    	on delete cascade,
 
 	constraint check_date_fin
     	check (date_fin >= date_debut)

@@ -2,22 +2,23 @@
 
 class Role
 {
-	private int idRole;
-	private string nom = string.Empty;
+	public string? Nom { set; get; }
 
-	public string Nom 
-	{
-		set { nom = value; }
-		get { return nom; }
-	}
+	public int IdRole { set; get; }
 
-	public int IdRole
-	{
-		set {  idRole = value; }
-		get { return idRole; }
-	}
+	public Role() { }
 
-	public Role()
-	{
-	}
+    public Role(int idRole, string nom)
+    {
+		IdRole = idRole;
+		Nom = nom;
+    }
+
+    public Role(Role role)
+    {
+        ArgumentNullException.ThrowIfNull(role);
+        
+        IdRole = role.IdRole;
+        Nom = role.Nom;
+    }
 }

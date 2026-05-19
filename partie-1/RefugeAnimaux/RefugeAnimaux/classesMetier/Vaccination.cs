@@ -2,34 +2,55 @@
 
 class Vaccination
 {
-	public Animal animal;
-	public Vaccin vaccin;
-	public DateOnly DateVaccination { set; get; }
+    private DateOnly? dateVaccination;
 
-	public Vaccination()
-	{
-		this.animal = new Animal ();
-		this.vaccin = new Vaccin ();
-	}
+    public Animal? Animal { get; set; } = null!;
+    public Vaccin? Vaccin { get; set; }
+    public string IdAnimal { get; set; } = string.Empty!;
+    public int IdVaccin { get; set; }
 
-    public Vaccination (DateOnly dateVaccination, string idAnimal, int idVaccin)
+    public DateOnly? DateVaccination 
+    { 
+        get { return dateVaccination; }
+
+        set 
+        {
+            if (value.HasValue)
+            {
+                // Détermine la date d'aujourd'hui en format DateOnly
+                DateOnly aujourdhui = DateOnly.FromDateTime(DateTime.Today);
+
+                // Vérifie que la date de vaccination n'est pas dans le futur
+                if (value > aujourdhui)
+                    throw new ArgumentException("La date de vaccination ne peut pas être dans le futur.");
+
+                if (Animal != null && value.Value < Animal.DateNaissance)
+                    throw new ArgumentException("Erreur : La date de vaccination ne peut pas être antérieure à la date de naissance.");
+            }
+
+            dateVaccination = value;
+        }
+    }
+
+	public Vaccination() { }
+
+    public Vaccination (DateOnly dateVaccination, Animal animal, Vaccin vaccin)
     {
-        this.animal = new Animal();
-        this.vaccin = new Vaccin();
-		animal.IdAnimal = idAnimal;
-		vaccin.IdVaccin = idVaccin;
-		DateVaccination = dateVaccination;
+        DateVaccination = dateVaccination;
+        Animal = animal;
+		Vaccin = vaccin;
+        IdAnimal = animal.IdAnimal!;
+        IdVaccin = vaccin.IdVaccin;
     }
 
     public Vaccination (Vaccination vaccination)
     {
-        if (vaccination == null)
-            ArgumentNullException.ThrowIfNull(vaccination);
+       ArgumentNullException.ThrowIfNull(vaccination);
 
-        this.animal = new Animal();
-        this.vaccin = new Vaccin();
-        animal.IdAnimal = vaccination.animal.IdAnimal;
-        vaccin.IdVaccin = vaccination.vaccin.IdVaccin;
+        Animal = vaccination.Animal;
+        Vaccin = vaccination.Vaccin;
+        IdAnimal = vaccination.IdAnimal;
+        IdVaccin = vaccination.IdVaccin;
         DateVaccination = vaccination.DateVaccination;
     }
 }

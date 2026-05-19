@@ -2,14 +2,9 @@
 
 class Vaccin
 {
-	private int idVaccin;
 	private string nomVaccin = string.Empty;
 
-	public int IdVaccin 
-	{
-		set {  idVaccin = value; }
-		get { return idVaccin; }
-	}
+	public int IdVaccin { set; get; }
 
 	public string NomVaccin 
 	{
@@ -32,8 +27,7 @@ class Vaccin
 
 	public Vaccin (Vaccin vaccin)
 	{
-		if (vaccin == null)
-			throw new ArgumentNullException(nameof(vaccin));
+		ArgumentNullException.ThrowIfNull(vaccin);
 
 		IdVaccin = vaccin.IdVaccin;
 		NomVaccin = vaccin.NomVaccin;

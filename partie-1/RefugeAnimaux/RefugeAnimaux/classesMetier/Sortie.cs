@@ -19,14 +19,14 @@ class Sortie
     // les constructeurs
     public Sortie () 
     {
-        this.animal = new Animal();
-        this.contact = new Contact();
+        animal = new Animal();
+        contact = new Contact();
     }
 
     public Sortie (MotifSortie motif, DateOnly dateSortie, string idAnimalSorti, int idContact)
     {
-        this.animal = new Animal();
-        this.contact = new Contact();
+        animal = new Animal();
+        contact = new Contact();
         Motif = motif;
         DateSortie = dateSortie;
         animal.IdAnimal = idAnimalSorti;
@@ -35,11 +35,10 @@ class Sortie
 
     public Sortie (Sortie sortie) 
     {
-        if (sortie == null)
-            ArgumentNullException.ThrowIfNull(sortie);
+        ArgumentNullException.ThrowIfNull(sortie);
 
-        this.animal = new Animal();
-        this.contact = new Contact();
+        animal = new Animal();
+        contact = new Contact();
         Motif = sortie.Motif;
         DateSortie = sortie.DateSortie;
         animal.IdAnimal = sortie.animal.IdAnimal;

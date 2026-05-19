@@ -5,132 +5,91 @@ using System.Text.RegularExpressions;
 public enum TypeAnimal
 {
     Chien,
-    Chat
+    Chat,
+    Autre
 }
 
 class Animal
 {
     public enum Genre
     {
-        [Description("M")]
-        Male,
-
-        [Description("F")]
-        Femelle
+        [Description("M")] Male,
+        [Description("F")] Femelle,
+        [Description("I")] Inconnu
     }
 
-    // Champs
-    private string? idAnimal;
-    private string? nomAnimal;
-    private Genre sexe;
-    private TypeAnimal type;
-    private DateOnly? dateNaissance;
-    private DateOnly? dateDeces;
-    private bool sterilise;
-    private DateOnly? dateSterilisation;
-    private string? description;
-    private string? particularites;
+    // Champs avec validation des données
+    private string idAnimal = string.Empty;
+    private string nom = string.Empty;
+    private DateOnly dateNaissance;
 
-    // Propriétés
-    public string? IdAnimal 
+    // Propriétés sans logique particulière
+    public string NomAnimal
     {
-        set {
+        get { return nom; }
+
+        set
+        {
+            nom = value;
+        }
+
+    } 
+    public Genre Sexe { get; set; }
+    public TypeAnimal Type { get; set; }
+    public DateOnly? DateDeces { get; set; }
+    public bool Sterilise { get; set; }
+    public DateOnly? DateSterilisation { get; set; }
+    public string? Description { get; set; }
+    public string? Particularites { get; set; }
+
+    // Liste des caracteristiques (multi-valeur) de l'animal
+    public List<Vaccination> ListeVaccinations { get; set; } = new List<Vaccination>();
+    public List<AnimalCompatibilite> ListeCompatibilites { get; set; } = new List<AnimalCompatibilite>();
+    public List<CouleurAnimal> ListeCouleurs { get; set; } = new List<CouleurAnimal>();
+
+    // Propriétés avec validation
+    public string IdAnimal 
+    {
+        get { return idAnimal; }
+
+        set 
+        {
             // Modèle valide : yy.mm.dd-xxx.cc -> 11 chiffres
             string modeleIdAnimal = @"^\d{11}$";
 
             if (string.IsNullOrWhiteSpace(value) || !Regex.IsMatch(value, modeleIdAnimal))
-                throw new Exception("idAnimal non valide !");
+                throw new ArgumentException("idAnimal non valide (doit être yymmdd99999)!");
 
             idAnimal = value; 
         }
-
-        get { return idAnimal; }
     }
 
-    public string? NomAnimal
+    public DateOnly DateNaissance 
     {
-        set { nomAnimal = value; }
-        get { return nomAnimal; }
-    }
-
-    public Genre Sexe 
-    {
-        set { sexe = value; }
-        get { return sexe; }
-    }
-
-    public TypeAnimal Type 
-    {
-        set { type = value; }
-        get { return type; }
-    }
-
-    public DateOnly? DateNaissance 
-    {
-        set {
-            if (DateNaissance.HasValue)
-                throw new Exception("La date de naissance ne peut etre nul !");
-
-            dateNaissance = value;
-        }
-
         get { return dateNaissance; }
+
+        set { dateNaissance = value; }
     }
 
-    public DateOnly? DateDeces
-    {
-        set { dateDeces = value; }
-        get { return dateDeces; }
-    }
-
-    public bool Sterilise 
-    {
-        set { sterilise = value; }
-        get { return sterilise; }
-    }
-
-    public DateOnly? DateSterilisation
-    {
-        set { dateSterilisation = value; }
-        get { return dateSterilisation; }
-    }
-
-    public string? Description
-    {
-        set { description = value; }
-        get { return description; }
-    }
-
-    public string? Particularites 
-    {
-        set { particularites = value; }
-        get { return particularites; }
-    }
-
-    public Animal() 
-    {
-        
-    }
+    public Animal() { }
 
     public Animal (string idAnimal, string nomAnimal, Genre sexe, TypeAnimal type, DateOnly dateNaissance, DateOnly dateDeces, bool sterilise, DateOnly dateSterilisation, string description, string particularites) 
     {
-        this.idAnimal = idAnimal;
-        this.nomAnimal = nomAnimal;
-        this.sexe = sexe;
-        this.type = type;
-        this.dateNaissance = dateNaissance;
-        this.dateDeces = dateDeces;
-        this.sterilise = sterilise;
-        this.description = description;
-        this.dateSterilisation = dateSterilisation;
-        this.description = description;
-        this.particularites = particularites;
+        IdAnimal = idAnimal;
+        NomAnimal = nomAnimal;
+        Sexe = sexe;
+        Type = type;
+        DateNaissance = dateNaissance;
+        DateDeces = dateDeces;
+        Sterilise = sterilise;
+        DateSterilisation = dateSterilisation;
+        Description = description;
+        Particularites = particularites;
     }
 
     public Animal (Animal animal) 
     {
-        if (animal == null)
-            ArgumentNullException.ThrowIfNull(animal);
+        ArgumentNullException.ThrowIfNull(animal);
 
         IdAnimal = animal.IdAnimal;
         NomAnimal = animal.NomAnimal;
@@ -143,11 +102,37 @@ class Animal
         DateSterilisation = animal.DateSterilisation;
         Description = animal.Description;
         Particularites = animal.Particularites;
+
+        // Copie profonde des listes pour ne pas perdre la traçabilité
+        ListeCouleurs = new List<CouleurAnimal>(animal.ListeCouleurs);
+        ListeVaccinations = new List<Vaccination>(animal.ListeVaccinations);
+        ListeCompatibilites = new List<AnimalCompatibilite>(animal.ListeCompatibilites);
     }
 
-    public Animal(string description, string particularites)
+    public void AjouterCouleur (int idCouleur)
     {
-        this.description = description;
-        this.particularites = particularites;
+        var nouvelleCouleur = new CouleurAnimal (idCouleur, IdAnimal);
+        ListeCouleurs.Add (nouvelleCouleur);
+    }
+
+    public void AjouterCompatibilite(Compatibilite comp, TypeValeur valeur, string description)
+    {
+        ArgumentNullException.ThrowIfNull(comp);
+
+        bool existe = ListeCompatibilites.Any(c => c.Compatibilite?.IdCompatibilite == comp.IdCompatibilite);
+
+        if (!existe)
+        {
+            var lien = new AnimalCompatibilite(this, comp, valeur, description);
+            ListeCompatibilites.Add(lien);
+        }
+    }
+
+    public void AjouterVaccination (DateOnly dateVacc, Vaccin vaccin) 
+    {
+        ArgumentNullException.ThrowIfNull(vaccin);
+
+        var nouvelleVaccination = new Vaccination (dateVacc, this, vaccin);
+        ListeVaccinations.Add (nouvelleVaccination);
     }
 }

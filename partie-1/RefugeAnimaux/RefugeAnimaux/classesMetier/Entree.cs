@@ -16,19 +16,19 @@ class Entree
     public MotifEntree Motif { get; set; }
     public DateOnly DateEntree { get; set; }
     public Animal animal;
-    public Contact contact;
+    public Contact contact; // personne de contact
 
     // les constructeurs
     public Entree () 
     {
-        this.animal = new Animal ();
-        this.contact = new Contact ();
+        animal = new Animal ();
+        contact = new Contact ();
     }
 
     public Entree (MotifEntree motif, DateOnly dateEntree, string idAnimalEntre, int idContact)
     {
-        this.animal = new Animal();
-        this.contact = new Contact();
+        animal = new Animal();
+        contact = new Contact();
         Motif = motif;
         DateEntree = dateEntree;
         animal.IdAnimal = idAnimalEntre;
@@ -37,11 +37,10 @@ class Entree
 
     public Entree (Entree entree)
     {
-        if (entree == null)
-            ArgumentNullException.ThrowIfNull(entree);
+        ArgumentNullException.ThrowIfNull(entree);
 
-        this.animal = new Animal();
-        this.contact = new Contact();
+        animal = new Animal();
+        contact = new Contact();
         Motif = entree.Motif;
         DateEntree = entree.DateEntree;
         animal.IdAnimal = entree.animal.IdAnimal;

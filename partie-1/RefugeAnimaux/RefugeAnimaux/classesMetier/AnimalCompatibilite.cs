@@ -1,37 +1,36 @@
 ﻿using System;
 
+public enum TypeValeur
+{
+    Oui,
+    Non,
+    NonTeste
+}
+
 class AnimalCompatibilite
 {
-	public Animal animal;
-	public Compatibilite compatibilite;
-	public bool Valeur { set; get; }
-	public string? Description { set; get; }
+    // Propriétés sans logique particulière
+    public Animal? Animal { get; set; }
+    public Compatibilite? Compatibilite { get; set; }
+    public TypeValeur Valeur { set; get; }
+    public string Description { set; get; } = string.Empty;
 
-	public AnimalCompatibilite ()
-	{
-		this.animal = new Animal ();
-		this.compatibilite = new Compatibilite ();
-	}
+    public AnimalCompatibilite () { }
 
-    public AnimalCompatibilite (string idAnimal, int idCompatibilite, bool valeur, string description)
+    public AnimalCompatibilite (Animal animal, Compatibilite compatibilite, TypeValeur valeur, string description)
     {
-        this.animal = new Animal ();
-        this.compatibilite = new Compatibilite ();
-		this.animal.IdAnimal = idAnimal;
-		this.compatibilite.IdCompatibilite = idCompatibilite;
+        Animal = animal;
+		Compatibilite = compatibilite;
 		Valeur = valeur;
 		Description = description;
     }
 
     public AnimalCompatibilite (AnimalCompatibilite anicompa)
     {
-        if (anicompa == null)
-            ArgumentNullException.ThrowIfNull(anicompa);
+        ArgumentNullException.ThrowIfNull(anicompa);
 
-        this.animal = new Animal ();
-        this.compatibilite = new Compatibilite ();
-        this.animal.IdAnimal = anicompa.animal.IdAnimal;
-        this.compatibilite.IdCompatibilite = anicompa.compatibilite.IdCompatibilite;
+        Animal = anicompa.Animal;
+        Compatibilite = anicompa.Compatibilite;
         Valeur = anicompa.Valeur;
         Description = anicompa.Description;
     }

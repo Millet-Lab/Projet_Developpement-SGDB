@@ -2,31 +2,22 @@
 
 class CouleurAnimal
 {
-    public Animal animal;
-    public Couleur couleur;
+    public int IdCouleur { get; set; }
+    public string? IdAnimal { get; set; }
 
-    public CouleurAnimal ()
-	{
-        animal = new Animal ();
-        couleur = new Couleur ();
-	}
-
-    public CouleurAnimal(string idAnimal, int idCouleur)
+    public CouleurAnimal() { }
+    public CouleurAnimal (int idCouleur, string idAnimal)
     {
-        animal = new Animal();
-        couleur = new Couleur();
-        animal.IdAnimal = idAnimal;
-        couleur.IdCouleur = idCouleur;
+        IdCouleur = idCouleur;
+        IdAnimal = idAnimal;
+
     }
 
-    public CouleurAnimal(CouleurAnimal ca)
+    public CouleurAnimal (CouleurAnimal ca)
     {
-        if (ca == null)
-            ArgumentNullException.ThrowIfNull(ca);
+        ArgumentNullException.ThrowIfNull(ca);
 
-        animal = new Animal();
-        couleur = new Couleur();
-        animal.IdAnimal = ca.animal.IdAnimal;
-        couleur.IdCouleur = ca.couleur.IdCouleur;
+        IdCouleur = ca.IdCouleur;
+        IdAnimal = ca.IdAnimal;
     }
 }

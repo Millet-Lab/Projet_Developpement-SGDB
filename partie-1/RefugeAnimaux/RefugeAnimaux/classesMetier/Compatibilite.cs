@@ -3,27 +3,24 @@
 class Compatibilite
 {
     private int idCompatibilite;
-	public TypeAnimal type;
+	private TypeAnimal type;
 
-    // les propriétés
+    // les propriétés sans logique
     public int IdCompatibilite
     {
-        set {  this.idCompatibilite = value; }
-        get { return this.idCompatibilite; }
+        set {  idCompatibilite = value; }
+        get { return idCompatibilite; }
     }
 
     public TypeAnimal Type
     {
-        set { this.type  = value; }
-        get { return (TypeAnimal) this.type; }
+        set { type  = value; }
+        get { return type; }
     }
 
     //public TypeAnimal
 
-    public Compatibilite()
-	{
-
-	}
+    public Compatibilite() { }
 
     public Compatibilite(int idCompatibilite, TypeAnimal type)
     {
@@ -33,10 +30,9 @@ class Compatibilite
 
     public Compatibilite(Compatibilite compatibilite)
     {
-        if (compatibilite == null)
-            throw new ArgumentNullException(nameof(compatibilite));
+        ArgumentNullException.ThrowIfNull(compatibilite);
 
         IdCompatibilite = compatibilite.IdCompatibilite;
-        //AniType = compatibilite.Type;
+        Type = compatibilite.Type;
     }
 }
