@@ -2,6 +2,7 @@
 using Npgsql;
 using System;
 using System.Data;
+using System.Data.SqlTypes;
 using System.IO;
 using static Adoption;
 using static Animal;
@@ -404,7 +405,7 @@ class  AccesBD : IDisposable
     }
 
     
-    public Contact ConsulterPersonneContact (int idContact) 
+    public Contact ConsulterPersonneContact (int idContact, string nomContact) 
     {
         string requete = @"select id_contact,
                                   nom,
@@ -416,7 +417,7 @@ class  AccesBD : IDisposable
                                   telephone,
                                   email
                            from contact
-                           where  id_contact = @idContact;
+                           where  id_contact = @idContact and nom = @nomContact;
                           "
         ;
 
@@ -424,6 +425,7 @@ class  AccesBD : IDisposable
         {
             using NpgsqlCommand sqlCmd = new NpgsqlCommand(requete, this.SqlConn);
             sqlCmd.Parameters.AddWithValue("@idContact", idContact);
+            sqlCmd.Parameters.AddWithValue("@nomContact", nomContact);
             using NpgsqlDataReader sqlReader = sqlCmd.ExecuteReader();
 
             // aucun contact trouvé dans la BD
@@ -532,7 +534,7 @@ class  AccesBD : IDisposable
         }
     }
 
-    public int AjouterPeronneContact (Contact contact)
+    public int AjouterPersonneContact (Contact contact)
     {
         ArgumentNullException.ThrowIfNull(contact);
 
@@ -781,7 +783,7 @@ class  AccesBD : IDisposable
         }
     }
 
-    public int ModifierStatutAdoption (string nouveauStatut, Animal animal, Contact contact) 
+    public int ModifierStatutAdoption (StatutAdoption nouveauStatut, Animal animal, Contact contact) 
    {
         ArgumentNullException.ThrowIfNull(animal);
         ArgumentNullException.ThrowIfNull(contact);
@@ -984,6 +986,28 @@ class  AccesBD : IDisposable
             return Convert.ToBoolean(sqlCmd.ExecuteScalar());
         }
         catch (Exception ex)
+        {
+            throw new ExceptionAccesBD(requete, ex.Message);
+        }
+    }
+
+    public int CompterAnimauxParDateEntree(DateOnly dateEntree)
+    {
+        string requete = "select count(*) from entree where date_entree = @dateEntree";
+
+        if (this.SqlConn == null)
+            throw new InvalidOperationException("Connexion non initialisée.");
+        
+        try
+        {
+            using NpgsqlCommand sqlCmd = new NpgsqlCommand(requete, this.SqlConn);
+            sqlCmd.Parameters.AddWithValue("@dateEntree", dateEntree);
+            
+            int nbAnimaux = Convert.ToInt32(sqlCmd.ExecuteScalar());
+            
+            return nbAnimaux;
+        }
+        catch (ExceptionAccesBD ex)
         {
             throw new ExceptionAccesBD(requete, ex.Message);
         }

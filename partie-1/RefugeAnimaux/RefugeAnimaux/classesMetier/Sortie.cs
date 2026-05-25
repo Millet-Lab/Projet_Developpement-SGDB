@@ -1,15 +1,15 @@
 ﻿using System;
 
+public enum MotifSortie
+{
+    Adoption,
+    RetourProprietaire,
+    DecesAnimal,
+    FamilleAccueil
+}
+
 class Sortie
 {
-    public enum MotifSortie
-    {
-        Adoption,
-	    RetourProprietaire,
-	    DecesAnimal,
-	    FamilleAccueil
-    }
-
     // les propriétés
     public MotifSortie Motif { get; set; }
     public DateOnly DateSortie { get; set; }

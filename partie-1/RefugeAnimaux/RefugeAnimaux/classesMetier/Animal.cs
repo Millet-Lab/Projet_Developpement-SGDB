@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Text.RegularExpressions;
-
 public enum TypeAnimal
 {
     Chien,
@@ -9,14 +8,16 @@ public enum TypeAnimal
     Autre
 }
 
+public enum Genre
+{
+    [Description("M")] Male,
+    [Description("F")] Femelle,
+    [Description("I")] Inconnu
+}
+
 class Animal
 {
-    public enum Genre
-    {
-        [Description("M")] Male,
-        [Description("F")] Femelle,
-        [Description("I")] Inconnu
-    }
+    
 
     // Champs avec validation des données
     private string idAnimal = string.Empty;
@@ -107,32 +108,5 @@ class Animal
         ListeCouleurs = new List<CouleurAnimal>(animal.ListeCouleurs);
         ListeVaccinations = new List<Vaccination>(animal.ListeVaccinations);
         ListeCompatibilites = new List<AnimalCompatibilite>(animal.ListeCompatibilites);
-    }
-
-    public void AjouterCouleur (int idCouleur)
-    {
-        var nouvelleCouleur = new CouleurAnimal (idCouleur, IdAnimal);
-        ListeCouleurs.Add (nouvelleCouleur);
-    }
-
-    public void AjouterCompatibilite(Compatibilite comp, TypeValeur valeur, string description)
-    {
-        ArgumentNullException.ThrowIfNull(comp);
-
-        bool existe = ListeCompatibilites.Any(c => c.Compatibilite?.IdCompatibilite == comp.IdCompatibilite);
-
-        if (!existe)
-        {
-            var lien = new AnimalCompatibilite(this, comp, valeur, description);
-            ListeCompatibilites.Add(lien);
-        }
-    }
-
-    public void AjouterVaccination (DateOnly dateVacc, Vaccin vaccin) 
-    {
-        ArgumentNullException.ThrowIfNull(vaccin);
-
-        var nouvelleVaccination = new Vaccination (dateVacc, this, vaccin);
-        ListeVaccinations.Add (nouvelleVaccination);
     }
 }

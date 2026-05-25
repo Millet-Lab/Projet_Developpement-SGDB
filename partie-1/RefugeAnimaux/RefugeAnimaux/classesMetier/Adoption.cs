@@ -1,15 +1,15 @@
 ﻿using System;
 
+public enum StatutAdoption
+{
+    Demande,
+    Acceptee,
+    RejetEnvironnement,
+    RejetComportement
+}
+
 class Adoption
 {
-    public enum StatutAdoption
-    {
-        Demande,
-        Acceptee,
-        RejetEnvironnement,
-        RejetComportement
-    }
-
     private StatutAdoption statut;
     private DateOnly dateAdoption;
 

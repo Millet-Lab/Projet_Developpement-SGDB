@@ -19,9 +19,8 @@ class Vaccin
 
 	public Vaccin (){ }
 
-	public Vaccin (int idVaccin, string nomVaccin) 
+	public Vaccin (string nomVaccin) 
 	{
-		IdVaccin = idVaccin;
 		NomVaccin = nomVaccin;
 	}
 
