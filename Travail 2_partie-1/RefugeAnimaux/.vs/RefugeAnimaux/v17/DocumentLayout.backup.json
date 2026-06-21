@@ -1,0 +1,121 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Millet\\Documents\\IPEPS\\Bloc 3\\Projet de d\u00E9veloppement SGBD\\Travaux\\Travail2\\Projet_Developpement-SGBD\\Travail 2_partie-2\\RefugeAnimaux\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{9790611D-505A-4AFC-A834-F0AD13BE95D2}|RefugeAnimaux\\RefugeAnimaux.csproj|c:\\users\\millet\\documents\\ipeps\\bloc 3\\projet de d\u00E9veloppement sgbd\\travaux\\travail2\\projet_developpement-sgbd\\travail 2_partie-2\\refugeanimaux\\refugeanimaux\\coucheaccesbd\\accesbd.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9790611D-505A-4AFC-A834-F0AD13BE95D2}|RefugeAnimaux\\RefugeAnimaux.csproj|solutionrelative:refugeanimaux\\coucheaccesbd\\accesbd.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9790611D-505A-4AFC-A834-F0AD13BE95D2}|RefugeAnimaux\\RefugeAnimaux.csproj|c:\\users\\millet\\documents\\ipeps\\bloc 3\\projet de d\u00E9veloppement sgbd\\travaux\\travail2\\projet_developpement-sgbd\\travail 2_partie-2\\refugeanimaux\\refugeanimaux\\couchepresentation\\accesconsole.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9790611D-505A-4AFC-A834-F0AD13BE95D2}|RefugeAnimaux\\RefugeAnimaux.csproj|solutionrelative:refugeanimaux\\couchepresentation\\accesconsole.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9790611D-505A-4AFC-A834-F0AD13BE95D2}|RefugeAnimaux\\RefugeAnimaux.csproj|c:\\users\\millet\\documents\\ipeps\\bloc 3\\projet de d\u00E9veloppement sgbd\\travaux\\travail2\\projet_developpement-sgbd\\travail 2_partie-2\\refugeanimaux\\refugeanimaux\\couchepresentation\\presentation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9790611D-505A-4AFC-A834-F0AD13BE95D2}|RefugeAnimaux\\RefugeAnimaux.csproj|solutionrelative:refugeanimaux\\couchepresentation\\presentation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9790611D-505A-4AFC-A834-F0AD13BE95D2}|RefugeAnimaux\\RefugeAnimaux.csproj|c:\\users\\millet\\documents\\ipeps\\bloc 3\\projet de d\u00E9veloppement sgbd\\travaux\\travail2\\projet_developpement-sgbd\\travail 2_partie-2\\refugeanimaux\\refugeanimaux\\classesmetier\\couleur.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9790611D-505A-4AFC-A834-F0AD13BE95D2}|RefugeAnimaux\\RefugeAnimaux.csproj|solutionrelative:refugeanimaux\\classesmetier\\couleur.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9790611D-505A-4AFC-A834-F0AD13BE95D2}|RefugeAnimaux\\RefugeAnimaux.csproj|c:\\users\\millet\\documents\\ipeps\\bloc 3\\projet de d\u00E9veloppement sgbd\\travaux\\travail2\\projet_developpement-sgbd\\travail 2_partie-2\\refugeanimaux\\refugeanimaux\\classesmetier\\compatibilite.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9790611D-505A-4AFC-A834-F0AD13BE95D2}|RefugeAnimaux\\RefugeAnimaux.csproj|solutionrelative:refugeanimaux\\classesmetier\\compatibilite.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9790611D-505A-4AFC-A834-F0AD13BE95D2}|RefugeAnimaux\\RefugeAnimaux.csproj|c:\\users\\millet\\documents\\ipeps\\bloc 3\\projet de d\u00E9veloppement sgbd\\travaux\\travail2\\projet_developpement-sgbd\\travail 2_partie-2\\refugeanimaux\\refugeanimaux\\classesmetier\\role.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9790611D-505A-4AFC-A834-F0AD13BE95D2}|RefugeAnimaux\\RefugeAnimaux.csproj|solutionrelative:refugeanimaux\\classesmetier\\role.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Couleur.cs",
+              "DocumentMoniker": "C:\\Users\\Millet\\Documents\\IPEPS\\Bloc 3\\Projet de d\u00E9veloppement SGBD\\Travaux\\Travail2\\Projet_Developpement-SGBD\\Travail 2_partie-2\\RefugeAnimaux\\RefugeAnimaux\\classesMetier\\Couleur.cs",
+              "RelativeDocumentMoniker": "RefugeAnimaux\\classesMetier\\Couleur.cs",
+              "ToolTip": "C:\\Users\\Millet\\Documents\\IPEPS\\Bloc 3\\Projet de d\u00E9veloppement SGBD\\Travaux\\Travail2\\Projet_Developpement-SGBD\\Travail 2_partie-2\\RefugeAnimaux\\RefugeAnimaux\\classesMetier\\Couleur.cs",
+              "RelativeToolTip": "RefugeAnimaux\\classesMetier\\Couleur.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-19T05:41:53.144Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Compatibilite.cs",
+              "DocumentMoniker": "C:\\Users\\Millet\\Documents\\IPEPS\\Bloc 3\\Projet de d\u00E9veloppement SGBD\\Travaux\\Travail2\\Projet_Developpement-SGBD\\Travail 2_partie-2\\RefugeAnimaux\\RefugeAnimaux\\classesMetier\\Compatibilite.cs",
+              "RelativeDocumentMoniker": "RefugeAnimaux\\classesMetier\\Compatibilite.cs",
+              "ToolTip": "C:\\Users\\Millet\\Documents\\IPEPS\\Bloc 3\\Projet de d\u00E9veloppement SGBD\\Travaux\\Travail2\\Projet_Developpement-SGBD\\Travail 2_partie-2\\RefugeAnimaux\\RefugeAnimaux\\classesMetier\\Compatibilite.cs",
+              "RelativeToolTip": "RefugeAnimaux\\classesMetier\\Compatibilite.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-03T12:56:58.076Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AccesBD.cs",
+              "DocumentMoniker": "C:\\Users\\Millet\\Documents\\IPEPS\\Bloc 3\\Projet de d\u00E9veloppement SGBD\\Travaux\\Travail2\\Projet_Developpement-SGBD\\Travail 2_partie-2\\RefugeAnimaux\\RefugeAnimaux\\coucheAccesBD\\AccesBD.cs",
+              "RelativeDocumentMoniker": "RefugeAnimaux\\coucheAccesBD\\AccesBD.cs",
+              "ToolTip": "C:\\Users\\Millet\\Documents\\IPEPS\\Bloc 3\\Projet de d\u00E9veloppement SGBD\\Travaux\\Travail2\\Projet_Developpement-SGBD\\Travail 2_partie-2\\RefugeAnimaux\\RefugeAnimaux\\coucheAccesBD\\AccesBD.cs",
+              "RelativeToolTip": "RefugeAnimaux\\coucheAccesBD\\AccesBD.cs",
+              "ViewState": "AgIAANEDAAAAAAAAAAAxwB4EAABAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-01T20:33:11.617Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Role.cs",
+              "DocumentMoniker": "C:\\Users\\Millet\\Documents\\IPEPS\\Bloc 3\\Projet de d\u00E9veloppement SGBD\\Travaux\\Travail2\\Projet_Developpement-SGBD\\Travail 2_partie-2\\RefugeAnimaux\\RefugeAnimaux\\classesMetier\\Role.cs",
+              "RelativeDocumentMoniker": "RefugeAnimaux\\classesMetier\\Role.cs",
+              "ToolTip": "C:\\Users\\Millet\\Documents\\IPEPS\\Bloc 3\\Projet de d\u00E9veloppement SGBD\\Travaux\\Travail2\\Projet_Developpement-SGBD\\Travail 2_partie-2\\RefugeAnimaux\\RefugeAnimaux\\classesMetier\\Role.cs",
+              "RelativeToolTip": "RefugeAnimaux\\classesMetier\\Role.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAQwBEAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-03T07:34:09.592Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "AccesConsole.cs",
+              "DocumentMoniker": "C:\\Users\\Millet\\Documents\\IPEPS\\Bloc 3\\Projet de d\u00E9veloppement SGBD\\Travaux\\Travail2\\Projet_Developpement-SGBD\\Travail 2_partie-2\\RefugeAnimaux\\RefugeAnimaux\\couchePresentation\\AccesConsole.cs",
+              "RelativeDocumentMoniker": "RefugeAnimaux\\couchePresentation\\AccesConsole.cs",
+              "ToolTip": "C:\\Users\\Millet\\Documents\\IPEPS\\Bloc 3\\Projet de d\u00E9veloppement SGBD\\Travaux\\Travail2\\Projet_Developpement-SGBD\\Travail 2_partie-2\\RefugeAnimaux\\RefugeAnimaux\\couchePresentation\\AccesConsole.cs",
+              "RelativeToolTip": "RefugeAnimaux\\couchePresentation\\AccesConsole.cs",
+              "ViewState": "AgIAAOcAAAAAAAAAAADwvxwBAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-01T22:33:36.577Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Presentation.cs",
+              "DocumentMoniker": "C:\\Users\\Millet\\Documents\\IPEPS\\Bloc 3\\Projet de d\u00E9veloppement SGBD\\Travaux\\Travail2\\Projet_Developpement-SGBD\\Travail 2_partie-2\\RefugeAnimaux\\RefugeAnimaux\\couchePresentation\\Presentation.cs",
+              "RelativeDocumentMoniker": "RefugeAnimaux\\couchePresentation\\Presentation.cs",
+              "ToolTip": "C:\\Users\\Millet\\Documents\\IPEPS\\Bloc 3\\Projet de d\u00E9veloppement SGBD\\Travaux\\Travail2\\Projet_Developpement-SGBD\\Travail 2_partie-2\\RefugeAnimaux\\RefugeAnimaux\\couchePresentation\\Presentation.cs",
+              "RelativeToolTip": "RefugeAnimaux\\couchePresentation\\Presentation.cs",
+              "ViewState": "AgIAAEADAAAAAAAAAAAwwEkDAAA1AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-28T15:37:06.018Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
