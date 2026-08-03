@@ -1,0 +1,75 @@
+﻿<UserControl x:Class="RefAniWpf.Vue.PagesVaccins.AjouterVaccinVue"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:RefAniWpf.Vue.PagesVaccins"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"
+             Background="White">
+    <StackPanel MaxWidth="500" HorizontalAlignment="Left" Margin="10,0,0,0">
+
+        <TextBlock Text="💉 Enregistrer un nouveau vaccin" FontSize="22" FontWeight="Bold" Foreground="#2C3E50" Margin="0,0,0,5"/>
+        <TextBlock Text="Associez un soin médical ou un rappel vaccinal à un pensionnaire." FontSize="12" Foreground="#7F8C8D" Margin="0,0,0,25"/>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.Resources>
+                <Style TargetType="Label">
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                    <Setter Property="FontWeight" Value="SemiBold"/>
+                    <Setter Property="Foreground" Value="#34495E"/>
+                    <Setter Property="Margin" Value="0,0,0,15"/>
+                </Style>
+                <Style TargetType="TextBox">
+                    <Setter Property="Height" Value="32"/>
+                    <Setter Property="VerticalContentAlignment" Value="Center"/>
+                    <Setter Property="Padding" Value="5,0"/>
+                    <Setter Property="Margin" Value="0,0,0,15"/>
+                </Style>
+                <Style TargetType="ComboBox">
+                    <Setter Property="Height" Value="32"/>
+                    <Setter Property="VerticalContentAlignment" Value="Center"/>
+                    <Setter Property="Margin" Value="0,0,0,15"/>
+                </Style>
+            </Grid.Resources>
+
+            <!-- 1. Sélection de l'animal -->
+            <Label Grid.Row="0" Grid.Column="0" Content="Sélectionner l'animal :"/>
+            <ComboBox Grid.Row="0" Grid.Column="1" 
+                      ItemsSource="{Binding ListeAnimauxDisponibles}" 
+                      SelectedValue="{Binding AnimalSelectionne}"
+                      DisplayMemberPath="NomAnimal"/>
+
+            <!-- 2. Nom du Vaccin -->
+            <Label Grid.Row="1" Grid.Column="0" Content="Nom du vaccin :"/>
+            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding NomVaccinSaisi, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <!-- 3. Date de vaccination -->
+            <Label Grid.Row="2" Grid.Column="0" Content="Date d'injection :"/>
+            <DatePicker Grid.Row="2" Grid.Column="1" Height="32" SelectedDate="{Binding DateVaccination}" Margin="0,0,0,15"/>
+
+            <!-- 4. Statut (Fait ou non fait) -->
+            <Label Grid.Row="3" Grid.Column="0" Content="Statut du vaccin :"/>
+            <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,0,15">
+                <CheckBox Content="Marquer comme administré (Fait)" IsChecked="{Binding IsVaccinFait, Mode=TwoWay}" VerticalAlignment="Center" FontWeight="SemiBold"/>
+            </StackPanel>
+        </Grid>
+
+        <!-- Bouton de validation -->
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0">
+            <Button Content="💾 Enregistrer le vaccin" Command="{Binding SauvegarderVaccinCommand}" Width="160" Height="35" Background="#2ECC71" Foreground="White" FontWeight="Bold" BorderThickness="0"/>
+        </StackPanel>
+
+    </StackPanel>
+</UserControl>

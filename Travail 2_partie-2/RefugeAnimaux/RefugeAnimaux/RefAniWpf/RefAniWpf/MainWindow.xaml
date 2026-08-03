@@ -1,0 +1,199 @@
+﻿<Window x:Class="RefAniWpf.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RefAniWpf"
+        xmlns:vueModele="clr-namespace:RefAniWpf.Vue_Modele"
+        xmlns:pageAnimaux="clr-namespace:RefAniWpf.Vue.PagesAnimaux"
+        xmlns:pageAccueils="clr-namespace:RefAniWpf.Vue.PagesAccueils"
+        xmlns:pageContacts="clr-namespace:RefAniWpf.Vue.PagesContacts"
+        xmlns:pageAdoptions="clr-namespace:RefAniWpf.Vue.PagesAdoptions"
+        xmlns:pageVaccins="clr-namespace:RefAniWpf.Vue.PagesVaccins"
+        mc:Ignorable="d"
+        Title="Gestion du Refuge d'Animaux" Height="650" Width="800"
+        WindowStartupLocation="CenterScreen">
+    <!-- Ressources locales de la fenêtre pour éviter l'erreur de résolution de style -->
+    <Window.Resources>
+        <Style x:Key="MenuButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="Padding" Value="12,6"/>
+            <Setter Property="Margin" Value="0,2"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#E0E0E0"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <DataTemplate DataType="{x:Type vueModele:AjouterAnimalVueModele}">
+            <pageAnimaux:AjouterAnimalVue />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vueModele:ConsulterAnimalVueModele}">
+            <pageAnimaux:ConsulterAnimalVue />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vueModele:ListerAnimauxVueModele}">
+            <pageAnimaux:ListerAnimauxVue />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vueModele:GestionInfosAnimalVueModele}">
+            <pageAnimaux:GestionInfosAnimalVue />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vueModele:SupprimerAnimalVueModele}">
+            <pageAnimaux:SupprimerAnimalVue />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vueModele:AjouterContactVueModele}">
+            <pageContacts:AjouterContactVue />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vueModele:GestionContactVueModele}">
+            <pageContacts:GestionContactVue />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vueModele:FamilleAccueilVueModele}">
+            <pageAccueils:FamilleAccueilVue />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vueModele:AjouterAdoptionVueModele}">
+            <pageAdoptions:AjouterAdoptionVue />
+        </DataTemplate> 
+        <DataTemplate DataType="{x:Type vueModele:ListerAdoptionsVueModele}">
+             <pageAdoptions:ListerAdoptionsVue />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vueModele:AjouterVaccinVueModele}">
+            <pageVaccins:AjouterVaccinVue />
+        </DataTemplate>
+    </Window.Resources>
+
+    <Grid>
+        <!-- Définition des colonnes : 300px pour la barre latérale, le reste pour l'affichage -->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- ================= BARRE LATÉRALE DE NAVIGATION ================= -->
+        <Border Grid.Column="0" Background="#F5F6FA" BorderBrush="#DCDDE1" BorderThickness="0,0,1,0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- En-tête / Titre de l'application -->
+                <StackPanel Grid.Row="0" Margin="15,20,15,20">
+                    <TextBlock Text="🐾 REFUGE LE MILLET" FontSize="20" FontWeight="Bold" Foreground="#2F3640" HorizontalAlignment="Center"/>
+                    <Separator Margin="0,10,0,0" Background="#DCDDE1"/>
+                </StackPanel>
+
+                <!-- Liste des menus déroulants (Scrollable si l'écran est petit) -->
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                    <StackPanel Margin="10,0">
+
+                        <!-- 1. ANIMAL -->
+                        <Expander Header="🐕 Animal" IsExpanded="True" Margin="0,4" FontSize="14" FontWeight="SemiBold" Foreground="#2F3640">
+                            <StackPanel Margin="15,5,0,5">
+                                <Button Content="Ajouter un animal" Command="{Binding AjouterAnimalCommand}" Style="{StaticResource MenuButtonStyle}"/>
+                                <Button Content="Consulter un animal" Command="{Binding ConsulterAnimalCommand}" Style="{StaticResource MenuButtonStyle}"/>
+                                <Button Content="Lister les animaux présents" Command="{Binding ListerAnimauxPresentsCommand}" Style="{StaticResource MenuButtonStyle}"/>
+                                <Button Content="Ajouter une info (compatibilité...)" Command="{Binding AjouterInfoAnimalCommand}" Style="{StaticResource MenuButtonStyle}"/>
+                                <Button Content="Supprimer une info" Command="{Binding SupprimerInfoAnimalCommand}" Style="{StaticResource MenuButtonStyle}"/>
+                                <Button Content="Supprimer un animal" Command="{Binding SupprimerAnimalCommand}" Style="{StaticResource MenuButtonStyle}"/>
+                            </StackPanel>
+                        </Expander>
+
+                        <!-- 2. PERSONNE DE CONTACT -->
+                        <Expander Header="👤 Personne de contact" IsExpanded="False" Margin="0,4" FontSize="14" FontWeight="SemiBold" Foreground="#2F3640">
+                            <StackPanel Margin="15,5,0,5">
+                                <Button Content="Ajouter une personne de contact" Command="{Binding AjouterContactCommand}" Style="{StaticResource MenuButtonStyle}"/>
+                                <Button Content="Consulter / Gérer contact" Command="{Binding ConsulterContactCommand}" Style="{StaticResource MenuButtonStyle}"/>
+                            </StackPanel>
+                        </Expander>
+
+                        <!-- 3. ACCUEIL (Familles d'accueil) -->
+                        <Expander Header="🏡 Accueil" IsExpanded="False" Margin="0,4" FontSize="14" FontWeight="SemiBold" Foreground="#2F3640">
+                            <StackPanel Margin="15,5,0,5">
+                                <Button Content="Gestion des Accueils" Command="{Binding AjouterFamilleAnimalCommand}" Style="{StaticResource MenuButtonStyle}"/>
+                            </StackPanel>
+                        </Expander>
+
+                        <!-- 4. ADOPTION -->
+                        <Expander Header="📜 Adoption" IsExpanded="False" Margin="0,4" FontSize="14" FontWeight="SemiBold" Foreground="#2F3640">
+                            <StackPanel Margin="15,5,0,5">
+                                <Button Content="Ajouter une adoption" Command="{Binding AjouterAdoptionCommand}" Style="{StaticResource MenuButtonStyle}"/>
+                                <Button Content="Lister les adoptions et statuts" Command="{Binding ListerAdoptionsCommand}" Style="{StaticResource MenuButtonStyle}"/>
+                                <Button Content="Modifier le statut d'une adoption" Command="{Binding ModifierStatutAdoptionCommand}" Style="{StaticResource MenuButtonStyle}"/>
+                            </StackPanel>
+                        </Expander>
+
+                        <!-- 5. VACCIN -->
+                        <Expander Header="💉 Vaccin" IsExpanded="False" Margin="0,4" FontSize="14" FontWeight="SemiBold" Foreground="#2F3640">
+                            <StackPanel Margin="15,5,0,5">
+                                <Button Content="Ajouter un vaccin à un animal" Command="{Binding AjouterVaccinCommand}" Style="{StaticResource MenuButtonStyle}"/>
+                            </StackPanel>
+                        </Expander>
+                    </StackPanel>
+                </ScrollViewer>
+
+                <!-- Bouton Quitter tout en bas de la barre latérale -->
+                <StackPanel Grid.Row="2" Margin="15">
+                    <Separator Margin="0,0,0,10" Background="#DCDDE1"/>
+                    <Button Content="🚪 Quitter l'application" 
+                            Command="{Binding QuitterCommand}" 
+                            Background="#D63031" Foreground="White" FontWeight="Bold" Height="38" BorderThickness="0">
+                        <Button.Resources>
+                            <!-- Arrondit légèrement les angles du bouton Quitter -->
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="4"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- ================= ZONE D'AFFICHAGE DYNAMIQUE (CONTENU CENTRAL) ================= -->
+        <Border Grid.Column="1" Background="White" Padding="25">
+            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                <ContentControl Content="{Binding VueActive}">
+                    <ContentControl.Style>
+                        <Style TargetType="ContentControl">
+                            <!-- Par défaut, on ne met aucun template fixe -->
+                            <Setter Property="ContentTemplate" Value="{x:Null}"></Setter>
+                            <Style.Triggers>
+                                <!-- Si VueActive est NUL (au démarrage), on charge l'image d'accueil -->
+                                <DataTrigger Binding="{Binding VueActive}" Value="{x:Null}">
+                                    <Setter Property="ContentTemplate">
+                                        <Setter.Value>
+                                            <DataTemplate>
+                                                <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,50,0,0">
+                                                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+
+                                                        <Image Source="/Images/accueil_refuge.png" 
+                                                               Width="350" Height="250" 
+                                                               Stretch="Uniform" 
+                                                               HorizontalAlignment="Center" 
+                                                               Margin="0,0,0,20"/>
+                                                        <!-- Messages de Bienvenue -->
+                                                        <TextBlock Text="🐾 Bienvenue sur le Gestionnaire du Refuge" 
+                                                                   FontSize="20" FontWeight="Bold" Foreground="#2C3E50" 
+                                                                   HorizontalAlignment="Center" Margin="0,0,0,5"/>
+
+                                                        <TextBlock Text="Sélectionnez une action dans le menu de gauche pour commencer." 
+                                                                   FontSize="13" Foreground="#7F8C8D" 
+                                                                   HorizontalAlignment="Center"/>
+                                                    </StackPanel>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ContentControl.Style>
+                </ContentControl>
+            </ScrollViewer>
+        </Border>
+    </Grid>
+</Window>

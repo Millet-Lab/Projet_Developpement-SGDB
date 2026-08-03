@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("RefugeAnimaux")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6ec74f51cf9896d740f451525a0775f9b367c965")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4b83ba8111d29e7049abd363b29c633be166cb6d")]
 [assembly: System.Reflection.AssemblyProductAttribute("RefugeAnimaux")]
 [assembly: System.Reflection.AssemblyTitleAttribute("RefugeAnimaux")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

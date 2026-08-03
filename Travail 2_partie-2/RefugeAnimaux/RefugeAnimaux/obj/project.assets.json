@@ -237,11 +237,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Millet\\Documents\\IPEPS\\Bloc 3\\Projet de développement SGBD\\Travaux\\Travail2\\Projet_Developpement-SGBD\\Travail 2_partie-2\\RefugeAnimaux\\RefugeAnimaux\\RefugeAnimaux.csproj",
+      "projectUniqueName": "C:\\Users\\Millet\\Documents\\IPEPS\\Bloc 3\\Projet de développement SGBD\\Travaux\\Travail2\\SGBD\\Travail 2_partie-2\\RefugeAnimaux\\RefugeAnimaux\\RefugeAnimaux.csproj",
       "projectName": "RefugeAnimaux",
-      "projectPath": "C:\\Users\\Millet\\Documents\\IPEPS\\Bloc 3\\Projet de développement SGBD\\Travaux\\Travail2\\Projet_Developpement-SGBD\\Travail 2_partie-2\\RefugeAnimaux\\RefugeAnimaux\\RefugeAnimaux.csproj",
+      "projectPath": "C:\\Users\\Millet\\Documents\\IPEPS\\Bloc 3\\Projet de développement SGBD\\Travaux\\Travail2\\SGBD\\Travail 2_partie-2\\RefugeAnimaux\\RefugeAnimaux\\RefugeAnimaux.csproj",
       "packagesPath": "C:\\Users\\Millet\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Millet\\Documents\\IPEPS\\Bloc 3\\Projet de développement SGBD\\Travaux\\Travail2\\Projet_Developpement-SGBD\\Travail 2_partie-2\\RefugeAnimaux\\RefugeAnimaux\\obj\\",
+      "outputPath": "C:\\Users\\Millet\\Documents\\IPEPS\\Bloc 3\\Projet de développement SGBD\\Travaux\\Travail2\\SGBD\\Travail 2_partie-2\\RefugeAnimaux\\RefugeAnimaux\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -255,7 +255,6 @@
         "net8.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {

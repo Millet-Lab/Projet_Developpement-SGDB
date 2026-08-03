@@ -1,0 +1,15 @@
+﻿
+FC:\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\App.xaml;;
+FC:\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\MainWindow.xaml;;
+FC:\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\Vue\PagesAccueils\FamilleAccueilVue.xaml;;
+FC:\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\Vue\PagesAdoptions\AjouterAdoptionVue.xaml;;
+FC:\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\Vue\PagesAdoptions\ListerAdoptionsVue.xaml;;
+FC:\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\Vue\PagesAnimaux\AjouterAnimalVue.xaml;;
+FC:\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\Vue\PagesAnimaux\ConsulterAnimalVue.xaml;;
+FC:\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\Vue\PagesAnimaux\ListerAnimauxVue.xaml;;
+FC:\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\Vue\PagesAnimaux\SupprimerAnimalVue.xaml;;
+FC:\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\Vue\PagesContacts\AjouterContactVue.xaml;;
+FC:\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\Vue\PagesContacts\GestionContactVue.xaml;;
+FC:\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\Vue\PagesVaccins\AjouterVaccinVue.xaml;;
+FC:\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\Vue\PagesAnimaux\GestionInfosAnimalVue.xaml;;
+

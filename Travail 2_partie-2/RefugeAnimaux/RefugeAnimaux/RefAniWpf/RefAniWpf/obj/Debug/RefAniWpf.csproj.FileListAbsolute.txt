@@ -1,0 +1,78 @@
+C:\Users\Millet\Documents\IPEPS\Bloc 3\Projet de développement SGBD\Travaux\Travail2\Projet_Developpement-SGBD\Travail 2_partie-2\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\bin\Debug\RefAniWpf.exe.config
+C:\Users\Millet\Documents\IPEPS\Bloc 3\Projet de développement SGBD\Travaux\Travail2\Projet_Developpement-SGBD\Travail 2_partie-2\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\bin\Debug\RefAniWpf.exe
+C:\Users\Millet\Documents\IPEPS\Bloc 3\Projet de développement SGBD\Travaux\Travail2\Projet_Developpement-SGBD\Travail 2_partie-2\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\bin\Debug\RefAniWpf.pdb
+C:\Users\Millet\Documents\IPEPS\Bloc 3\Projet de développement SGBD\Travaux\Travail2\Projet_Developpement-SGBD\Travail 2_partie-2\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\obj\Debug\RefAniWpf.csproj.AssemblyReference.cache
+C:\Users\Millet\Documents\IPEPS\Bloc 3\Projet de développement SGBD\Travaux\Travail2\Projet_Developpement-SGBD\Travail 2_partie-2\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\obj\Debug\MainWindow.g.cs
+C:\Users\Millet\Documents\IPEPS\Bloc 3\Projet de développement SGBD\Travaux\Travail2\Projet_Developpement-SGBD\Travail 2_partie-2\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\obj\Debug\App.g.cs
+C:\Users\Millet\Documents\IPEPS\Bloc 3\Projet de développement SGBD\Travaux\Travail2\Projet_Developpement-SGBD\Travail 2_partie-2\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\obj\Debug\RefAniWpf_MarkupCompile.cache
+C:\Users\Millet\Documents\IPEPS\Bloc 3\Projet de développement SGBD\Travaux\Travail2\Projet_Developpement-SGBD\Travail 2_partie-2\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\obj\Debug\RefAniWpf_MarkupCompile.lref
+C:\Users\Millet\Documents\IPEPS\Bloc 3\Projet de développement SGBD\Travaux\Travail2\Projet_Developpement-SGBD\Travail 2_partie-2\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\obj\Debug\MainWindow.baml
+C:\Users\Millet\Documents\IPEPS\Bloc 3\Projet de développement SGBD\Travaux\Travail2\Projet_Developpement-SGBD\Travail 2_partie-2\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\obj\Debug\RefAniWpf.g.resources
+C:\Users\Millet\Documents\IPEPS\Bloc 3\Projet de développement SGBD\Travaux\Travail2\Projet_Developpement-SGBD\Travail 2_partie-2\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\obj\Debug\RefAniWpf.Properties.Resources.resources
+C:\Users\Millet\Documents\IPEPS\Bloc 3\Projet de développement SGBD\Travaux\Travail2\Projet_Developpement-SGBD\Travail 2_partie-2\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\obj\Debug\RefAniWpf.csproj.GenerateResource.cache
+C:\Users\Millet\Documents\IPEPS\Bloc 3\Projet de développement SGBD\Travaux\Travail2\Projet_Developpement-SGBD\Travail 2_partie-2\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\obj\Debug\RefAniWpf.csproj.CoreCompileInputs.cache
+C:\Users\Millet\Documents\IPEPS\Bloc 3\Projet de développement SGBD\Travaux\Travail2\Projet_Developpement-SGBD\Travail 2_partie-2\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\obj\Debug\RefAniWpf.exe
+C:\Users\Millet\Documents\IPEPS\Bloc 3\Projet de développement SGBD\Travaux\Travail2\Projet_Developpement-SGBD\Travail 2_partie-2\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\obj\Debug\RefAniWpf.pdb
+C:\Users\Millet\Documents\IPEPS\Bloc 3\Projet de développement SGBD\Travaux\Travail2\Projet_Developpement-SGBD\Travail 2_partie-2\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\obj\Debug\RefAniWpf.exe.config
+C:\Users\Millet\Documents\IPEPS\Bloc 3\Projet de développement SGBD\Travaux\Travail2\Projet_Developpement-SGBD\Travail 2_partie-2\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\obj\Debug\App.baml
+C:\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\obj\Debug\RefAniWpf.csproj.AssemblyReference.cache
+C:\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\obj\Debug\MainWindow.g.cs
+C:\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\obj\Debug\App.g.cs
+C:\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\obj\Debug\RefAniWpf_MarkupCompile.cache
+C:\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\obj\Debug\RefAniWpf_MarkupCompile.lref
+C:\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\obj\Debug\RefAniWpf.exe
+C:\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\obj\Debug\RefAniWpf.pdb
+C:\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\bin\Debug\RefAniWpf.exe.config
+C:\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\bin\Debug\RefAniWpf.exe
+C:\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\bin\Debug\RefAniWpf.pdb
+C:\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
+C:\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\bin\Debug\Npgsql.dll
+C:\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\bin\Debug\System.Buffers.dll
+C:\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\bin\Debug\System.Memory.dll
+C:\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\bin\Debug\System.Numerics.Vectors.dll
+C:\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\bin\Debug\System.Text.Encodings.Web.dll
+C:\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\bin\Debug\System.Text.Json.dll
+C:\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\bin\Debug\System.Threading.Tasks.Extensions.dll
+C:\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\bin\Debug\System.ValueTuple.dll
+C:\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+C:\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\bin\Debug\Npgsql.xml
+C:\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\bin\Debug\System.Buffers.xml
+C:\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\bin\Debug\System.Memory.xml
+C:\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\bin\Debug\System.Numerics.Vectors.xml
+C:\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\bin\Debug\System.Text.Encodings.Web.xml
+C:\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\bin\Debug\System.Text.Json.xml
+C:\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\bin\Debug\System.Threading.Tasks.Extensions.xml
+C:\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\bin\Debug\System.ValueTuple.xml
+C:\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\obj\Debug\App.baml
+C:\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\obj\Debug\MainWindow.baml
+C:\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\obj\Debug\RefAniWpf.g.resources
+C:\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\obj\Debug\RefAniWpf.Properties.Resources.resources
+C:\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\obj\Debug\RefAniWpf.csproj.GenerateResource.cache
+C:\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\obj\Debug\RefAniWpf.csproj.CoreCompileInputs.cache
+C:\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\obj\Debug\RefAniWpf.csproj.Up2Date
+C:\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\obj\Debug\Vue\PagesVaccins\AjouterVaccinVue.g.cs
+C:\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\obj\Debug\Vue\PagesVaccins\AjouterVaccinVue.baml
+C:\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\obj\Debug\Vue\PagesAnimaux\AjouterAnimalVue.g.cs
+C:\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\obj\Debug\Vue\PagesAnimaux\AjouterAnimalVue.baml
+C:\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\obj\Debug\Vue\PagesAnimaux\ConsulterAnimalVue.g.cs
+C:\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\obj\Debug\Vue\PagesAnimaux\ConsulterAnimalVue.baml
+C:\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\obj\Debug\Vue\PagesAnimaux\ListerAnimauxVue.g.cs
+C:\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\obj\Debug\Vue\PagesAnimaux\ListerAnimauxVue.baml
+C:\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\obj\Debug\Vue\PagesAnimaux\SupprimerAnimalVue.g.cs
+C:\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\obj\Debug\Vue\PagesAnimaux\SupprimerAnimalVue.baml
+C:\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\obj\Debug\Vue\PagesContacts\AjouterContactVue.g.cs
+C:\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\obj\Debug\Vue\PagesContacts\AjouterContactVue.baml
+C:\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\obj\Debug\Vue\PagesContacts\GestionContactVue.g.cs
+C:\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\obj\Debug\Vue\PagesContacts\GestionContactVue.baml
+C:\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\obj\Debug\Vue\PagesAccueils\FamilleAccueilVue.g.cs
+C:\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\obj\Debug\Vue\PagesAccueils\FamilleAccueilVue.baml
+C:\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\obj\Debug\Vue\PagesAdoptions\AjouterAdoptionVue.g.cs
+C:\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\obj\Debug\Vue\PagesAdoptions\ListerAdoptionsVue.g.cs
+C:\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\obj\Debug\Vue\PagesAdoptions\AjouterAdoptionVue.baml
+C:\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\obj\Debug\Vue\PagesAdoptions\ListerAdoptionsVue.baml
+C:\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\obj\Debug\RefAniWpf.exe.config
+C:\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\obj\Debug\Vue\PagesAnimaux\GestionInfosAnimalVue.g.cs
+C:\RefugeAnimaux\RefugeAnimaux\RefAniWpf\RefAniWpf\obj\Debug\Vue\PagesAnimaux\GestionInfosAnimalVue.baml

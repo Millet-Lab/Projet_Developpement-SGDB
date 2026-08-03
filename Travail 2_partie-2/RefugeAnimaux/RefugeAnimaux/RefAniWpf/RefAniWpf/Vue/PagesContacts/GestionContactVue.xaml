@@ -1,0 +1,75 @@
+﻿<UserControl x:Class="RefAniWpf.Vue.PagesContacts.GestionContactVue"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:RefAniWpf.Vue.PagesContacts"
+             mc:Ignorable="d"
+             Background="white"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="20" MaxWidth="500" HorizontalAlignment="Left">
+            <TextBlock Text="👤 Gestion des Personnes de Contact" FontSize="22" FontWeight="Bold" Foreground="#2C3E50" Margin="0,0,0,20"/>
+            <Label Content="Sélectionner une personne :" FontWeight="Bold"/>
+            <Grid Margin="0,0,0,20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <ComboBox Grid.Column="0" ItemsSource="{Binding ListeContacts}" SelectedItem="{Binding ContactSelectionne}" DisplayMemberPath="Nom" Height="32"/>
+                <Button Grid.Column="1" Content="🗑️ Supprimer" Command="{Binding SupprimerCommand}" Background="#D63031" Foreground="White" FontWeight="Bold" Width="100" Margin="10,0,0,0" BorderThickness="0"/>
+            </Grid>
+
+            <StackPanel Visibility="{Binding IsFicheVisible, FallbackValue=Collapsed}">
+                <TextBlock Text="✏️ Consultation &amp; Modification des coordonnées" FontSize="16" FontWeight="Bold" Foreground="#34495E" Margin="0,0,0,15"/>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="140"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.Resources>
+                        <Style TargetType="Label">
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="Margin" Value="0,0,0,12"/>
+                        </Style>
+                        <Style TargetType="TextBox">
+                            <Setter Property="Height" Value="32"/>
+                            <Setter Property="VerticalContentAlignment" Value="Center"/>
+                            <Setter Property="Margin" Value="0,0,0,12"/>
+                        </Style>
+                    </Grid.Resources>
+                    <Label Grid.Row="0" Content="Nom :"/>
+                    <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding FicheComplete.Nom}"/>
+                    <Label Grid.Row="1" Content="Prénom :"/>
+                    <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding FicheComplete.Prenom}"/>
+                    <Label Grid.Row="2" Content="Rue :"/>
+                    <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding FicheComplete.Adresse.Rue}"/>
+                    <Label Grid.Row="3" Content="Code Postal :"/>
+                    <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding FicheComplete.Adresse.CodePostal}"/>
+                    <Label Grid.Row="4" Content="Localité :"/>
+                    <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding FicheComplete.Adresse.Localite}"/>
+                    <Label Grid.Row="5" Content="Registre National :"/>
+                    <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding FicheComplete.RegistreNat}"/>
+                    <Label Grid.Row="6" Content="Numéro GSM :"/>
+                    <TextBox Grid.Row="6" Grid.Column="1" Text="{Binding FicheComplete.GSM}"/>
+                    <Label Grid.Row="7" Content="Téléphone :"/>
+                    <TextBox Grid.Row="7" Grid.Column="1" Text="{Binding FicheComplete.Telephone}"/>
+                    <Label Grid.Row="8" Content="Email :"/>
+                    <TextBox Grid.Row="8" Grid.Column="1" Text="{Binding FicheComplete.Email}"/>
+                </Grid>
+                <Button Content="💾 Enregistrer les modifications" Command="{Binding ModifierCommand}" Background="#2ECC71" Foreground="White" FontWeight="Bold" Height="35" BorderThickness="0" Margin="0,10,0,0"/>
+            </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

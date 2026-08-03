@@ -72,27 +72,13 @@ class  AccesBD : IDisposable
         ArgumentNullException.ThrowIfNull(animal);
 
         List<Accueil> listeFamilleAccueil = new List<Accueil>();
-        string requete = @"select c.id_contact,
-                                  c.nom,
-                                  c.prenom,
-                                  (c.adresse).rue as adresse_rue,
-                                  (c.adresse).cp as adresse_cp,
-                                  (c.adresse).localite as adresse_localite,
-                                  c.registre_national,
-                                  c.gsm,
-                                  c.telephone,
-                                  c.email,
-                                  a.date_debut,
-                                  a.date_fin
-                           from accueil a
-                           join contact c on a.id_contact = c.id_contact
-                           where a.id_animal = @idAnimal
-                           order by a.date_debut;
-                          ";
+        string requete = "liste_famille_accueil_ani";
+
         try
         {
             using NpgsqlCommand sqlCmd = new NpgsqlCommand(requete, SqlConn);
-            sqlCmd.Parameters.AddWithValue("@idAnimal", animal.IdAnimal);
+            sqlCmd.CommandType = System.Data.CommandType.StoredProcedure;
+            sqlCmd.Parameters.AddWithValue("p_id_animal", animal.IdAnimal);
 
             using NpgsqlDataReader sqlReader = sqlCmd.ExecuteReader();
 
@@ -156,29 +142,13 @@ class  AccesBD : IDisposable
         ArgumentNullException.ThrowIfNull(contact);
 
         List<Accueil> ListeAnimauxDansFamilleAccueil = new List<Accueil> ();
-        string requete = @"select animal.id_animal,
-                                  animal.nom,
-                                  animal.sexe,
-                                  animal.ani_type,
-                                  animal.date_naissance,
-                                  animal.date_deces,
-                                  animal.sterilise,
-                                  animal.date_sterilisation,
-                                  animal.description,
-                                  animal.particularites,
-                                  accueil.date_debut,
-                                  accueil.date_fin
-                           from accueil
-                           join animal on accueil.id_animal = animal.id_animal
-                           where accueil.id_contact = @idContact
-                           order by accueil.date_debut;
-                          ";
+        string requete = "liste_ani_accueillis_fam_acc";
 
         try 
         {
             using NpgsqlCommand sqlCmd = new NpgsqlCommand(requete, SqlConn);
-
-            sqlCmd.Parameters.AddWithValue("@idContact", contact.IdContact);
+            sqlCmd.CommandType = System.Data.CommandType.StoredProcedure;
+            sqlCmd.Parameters.AddWithValue("p_id_contact", contact.IdContact);
 
             using NpgsqlDataReader sqlReader = sqlCmd.ExecuteReader();
 
@@ -218,6 +188,7 @@ class  AccesBD : IDisposable
 
                 Accueil accueil = new Accueil();
                 accueil.AnimalAccueilli = animal;
+                accueil.FamilleAccueil = contact;
                 accueil.DateDebut = sqlReader.GetFieldValue<DateOnly>(idxDebut);
 
                 if (!sqlReader.IsDBNull(idxFin))
@@ -238,37 +209,13 @@ class  AccesBD : IDisposable
     public List<Adoption> ListeAdoptions () 
     {
         List<Adoption> listeDesAdoptions = new List<Adoption>();
-        string requete = @"select adoption.statut,
-                                  adoption.date_adoption,
-                                  animal.id_animal,
-                                  animal.nom as nom_animal,
-                                  animal.sexe,
-                                  animal.ani_type,
-                                  animal.date_naissance,
-                                  animal.date_deces,
-                                  animal.sterilise,
-                                  animal.date_sterilisation,
-                                  animal.description,
-                                  animal.particularites,
-                                  contact.id_contact,
-                                  contact.nom as nom_contact,
-                                  contact.prenom,
-                                  (contact.adresse).rue as adresse_rue,
-                                  (contact.adresse).cp as adresse_cp,
-                                  (contact.adresse).localite as adresse_localite,
-                                  contact.registre_national,
-                                  contact.gsm,
-                                  contact.telephone,
-                                  contact.email
-                           from adoption
-                           join animal  on adoption.id_animal = animal.id_animal
-                           join contact on adoption.id_contact = contact.id_contact
-                           order by adoption.date_adoption desc;
-                          ";
+        string requete = "liste_adoptions";
 
         try 
         {
             using NpgsqlCommand sqlCmd = new NpgsqlCommand(requete, this.SqlConn);
+            sqlCmd.CommandType = System.Data.CommandType.StoredProcedure;
+
             using NpgsqlDataReader sqlReader = sqlCmd.ExecuteReader();
 
             // récupération des données d'une adoption de la base des données
@@ -358,28 +305,14 @@ class  AccesBD : IDisposable
     
     public Animal? ConsulterAnimal (string idAnimal) 
     {
-        string requete = @"select a.id_animal,
-                                  a.nom,
-                                  a.sexe,
-                                  a.ani_type,
-                                  a.date_naissance,
-                                  a.date_deces,
-                                  a.sterilise,
-                                  a.date_sterilisation,
-                                  a.description,
-                                  a.particularites,
-                                  coalesce(array_remove(array_agg(c.id_couleur), null), '{}') as ids_couleurs,
-                                  coalesce(array_remove(array_agg(c.nom), null), '{}') as noms_couleurs
-                           from animal a 
-                           left join couleurs_animal ca on a.id_animal = ca.id_animal
-                           left join couleurs c on ca.id_couleur = c.id_couleur
-                           where  a.id_animal = @idAnimal
-                           group by a.id_animal;";
+        string requete = "consulter_animal";
 
         try
         {
             using NpgsqlCommand sqlCmd = new NpgsqlCommand(requete, this.SqlConn);
-            sqlCmd.Parameters.AddWithValue("@idAnimal", idAnimal);
+            sqlCmd.CommandType = System.Data.CommandType.StoredProcedure;
+            sqlCmd.Parameters.AddWithValue("p_id_animal", idAnimal);
+
             using NpgsqlDataReader sqlReader = sqlCmd.ExecuteReader();
 
             if (!sqlReader.Read())
@@ -436,29 +369,13 @@ class  AccesBD : IDisposable
     public List<Animal> ListeAnimauxDuRefuge()
     {
         List<Animal> listeAnimaux = new List<Animal>();
-        string requete = @"select a.id_animal,
-                                  a.nom,
-                                  a.sexe,
-                                  a.ani_type,
-                                  a.date_naissance,
-                                  a.date_deces,
-                                  a.sterilise,
-                                  a.date_sterilisation,
-                                  a.description,
-                                  a.particularites,
-                                  coalesce(array_remove(array_agg(c.id_couleur), null), '{}') as ids_couleurs,
-                              coalesce(array_remove(array_agg(c.nom), null), '{}') as noms_couleurs
-                           from animal a
-                           left join couleurs_animal ca on a.id_animal = ca.id_animal
-                           left join couleurs c on ca.id_couleur = c.id_couleur
-                           group by a.id_animal
-                           order by a.id_animal desc;
-                          "
-        ;
+        string requete = "liste_animaux_du_refuge";
 
         try
         {
             using NpgsqlCommand sqlCmd = new NpgsqlCommand(requete, SqlConn);
+            sqlCmd.CommandType = System.Data.CommandType.StoredProcedure;
+
             using NpgsqlDataReader sqlReader = sqlCmd.ExecuteReader();
 
             // recupère les index des positions de chaque colonne de la table depuis la requete SQL
@@ -525,26 +442,14 @@ class  AccesBD : IDisposable
 
     public Contact ConsulterPersonneContact (int idContact) 
     {
-        string requete = @"select id_contact,
-                                  nom,
-                                  prenom,
-                                  (adresse).rue as adresse_rue,
-                                  (adresse).cp as adresse_cp,
-                                  (adresse).localite as adresse_localite,
-                                  registre_national,
-                                  gsm,
-                                  telephone,
-                                  email
-                           from contact
-                           where id_contact = @idContact;
-                          "
-        ;
+        string requete = "consulter_personne_contact";
 
         try
         {
             using NpgsqlCommand sqlCmd = new NpgsqlCommand(requete, this.SqlConn);
-            sqlCmd.Parameters.AddWithValue("@idContact", idContact);
-            
+            sqlCmd.CommandType = System.Data.CommandType.StoredProcedure;
+            sqlCmd.Parameters.AddWithValue("p_id_contact", idContact);
+
             using NpgsqlDataReader sqlReader = sqlCmd.ExecuteReader();
 
             if (!sqlReader.Read())
@@ -593,145 +498,63 @@ class  AccesBD : IDisposable
         ArgumentNullException.ThrowIfNull(animal);
         ArgumentNullException.ThrowIfNull(entree);
 
-        int nbLignes = 0; // valeur de retour pour confirmation d'ajout
-        string requete = @"insert into animal (
-                                                 id_animal, 
-                                                 nom, 
-                                                 sexe, 
-                                                 ani_type, 
-                                                 date_naissance, 
-                                                 date_deces, 
-                                                 sterilise, 
-                                                 date_sterilisation, 
-                                                 description, 
-                                                 particularites)
-                                       values (
-                                                 @idAnimal, 
-                                                 @nom, 
-                                                 @sexe::genre, 
-                                                 @type::type_animal, 
-                                                 @dateNaissance, 
-                                                 @dateDeces, 
-                                                 @sterilise, 
-                                                 @dateSterilisation, 
-                                                 @description, 
-                                                 @particularites)"
-        ;
-
-        string requeteEntree = @"insert into entree (date_entree, motif, id_animal, id_contact) 
-                                             values (@dateEntree, @motif::motifs_entree, @idAnimal, @idContact)";
-
-        string requeteCouleur = @"insert into couleurs_animal (id_animal, id_couleur) 
-                                                      values (@idAnimal, @idCouleur)"
-        ;
-
         if (this.SqlConn == null)
             throw new InvalidOperationException("Connexion non initialisée.");
 
-        using NpgsqlTransaction transaction = this.SqlConn.BeginTransaction();
+        string requete = "ajouter_animal";
 
         try
         {
             // ajoute les valeurs aux paramètres d'un animal
-            using (NpgsqlCommand sqlCmd = new NpgsqlCommand(requete, this.SqlConn, transaction))
+            using NpgsqlCommand sqlCmd = new NpgsqlCommand(requete, this.SqlConn);
+            sqlCmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+            sqlCmd.Parameters.AddWithValue("p_id_animal", animal.IdAnimal);
+            sqlCmd.Parameters.AddWithValue("p_nom", animal.NomAnimal);
+            sqlCmd.Parameters.AddWithValue("p_sexe", animal.Sexe.ToString());
+            sqlCmd.Parameters.AddWithValue("p_ani_type", animal.Type.ToString().ToLower());
+            sqlCmd.Parameters.AddWithValue("p_date_naissance", animal.DateNaissance);
+            sqlCmd.Parameters.Add("p_date_deces", NpgsqlTypes.NpgsqlDbType.Date).Value = (object?)animal.DateDeces ?? DBNull.Value;
+            sqlCmd.Parameters.AddWithValue("p_sterilise", animal.Sterilise);
+            sqlCmd.Parameters.Add("p_date_sterilisation", NpgsqlTypes.NpgsqlDbType.Date).Value = (object?)animal.DateSterilisation ?? DBNull.Value;
+            sqlCmd.Parameters.Add("p_description", NpgsqlTypes.NpgsqlDbType.Text).Value = (object?)animal.Description ?? DBNull.Value;
+            sqlCmd.Parameters.Add("p_particularites", NpgsqlTypes.NpgsqlDbType.Text).Value = (object?)animal.Particularites ?? DBNull.Value;
+
+            // Paramètres de l'entrée
+            sqlCmd.Parameters.AddWithValue("p_date_entree", entree.DateEntree);
+            sqlCmd.Parameters.AddWithValue("p_motif", entree.Motif.ToString().ToLower());
+            sqlCmd.Parameters.AddWithValue("p_id_contact", idContact);
+
+            // Transformation de la liste d'objets CouleurAnimal en tableau de chaînes pour le paramètre PostgreSQL VARCHAR[]
+            string[] tableauCouleurs = animal.ListeCouleurs?
+                .Select(ca => ca.Couleur.Nom)
+                .Where(nom => !string.IsNullOrWhiteSpace(nom))
+                .ToArray() ?? Array.Empty<string>();
+
+            sqlCmd.Parameters.AddWithValue("p_noms_couleurs", tableauCouleurs);
+
+            NpgsqlParameter paramNbLignes = new NpgsqlParameter("p_nb_lignes", NpgsqlTypes.NpgsqlDbType.Integer)
             {
-                sqlCmd.Parameters.AddWithValue("@idAnimal", animal.IdAnimal);
-                sqlCmd.Parameters.AddWithValue("@nom", animal.NomAnimal);
-                sqlCmd.Parameters.AddWithValue("@sexe", animal.Sexe.ToString());
-                sqlCmd.Parameters.AddWithValue("@type", animal.Type.ToString().ToLower());
-                sqlCmd.Parameters.AddWithValue("@dateNaissance", animal.DateNaissance);
-                sqlCmd.Parameters.Add("@dateDeces", NpgsqlTypes.NpgsqlDbType.Date).Value = (object?)animal.DateDeces ?? DBNull.Value;
-                sqlCmd.Parameters.AddWithValue("@sterilise", animal.Sterilise);
-                sqlCmd.Parameters.Add("@dateSterilisation", NpgsqlTypes.NpgsqlDbType.Date).Value = (object?)animal.DateSterilisation ?? DBNull.Value;
-                sqlCmd.Parameters.Add("@description", NpgsqlTypes.NpgsqlDbType.Text).Value = (object?)animal.Description ?? DBNull.Value;
-                sqlCmd.Parameters.Add("@particularites", NpgsqlTypes.NpgsqlDbType.Text).Value = (object?)animal.Particularites ?? DBNull.Value;
+                Direction = System.Data.ParameterDirection.InputOutput,
+                Value = 0
+            };
 
-                nbLignes += sqlCmd.ExecuteNonQuery();
-            }
+            sqlCmd.Parameters.Add(paramNbLignes);
+            sqlCmd.ExecuteNonQuery();
 
-            // ajoute les valeurs aux paramètres d'une entrée
-            using (NpgsqlCommand cmdEntree = new NpgsqlCommand(requeteEntree, this.SqlConn, transaction))
-            {
-                cmdEntree.Parameters.AddWithValue("@dateEntree", entree.DateEntree);
-                cmdEntree.Parameters.AddWithValue("@motif", entree.Motif.ToString().ToLower());
-                cmdEntree.Parameters.AddWithValue("@idAnimal", animal.IdAnimal);
-                cmdEntree.Parameters.AddWithValue("@idContact", idContact);
-
-                nbLignes += cmdEntree.ExecuteNonQuery();
-            }
-
-            // ajoute les valeurs aux paramètres couleur d'un animal
-            if (animal.ListeCouleurs != null && animal.ListeCouleurs.Count > 0)
-            {
-                // Requêtes nécessaires pour la gestion à la volée
-                string sqlVerifCouleur = "select id_couleur from couleurs where lower(nom) = lower(@nom)";
-                string sqlInsertCouleur = "insert into couleurs (nom) values (@nom) returning id_couleur";
-
-                foreach (CouleurAnimal ca in animal.ListeCouleurs)
-                {
-                    int idCouleurFinale = 0;
-                    string nomSaisi = ca.Couleur.Nom;
-
-                    // A. On vérifie si la couleur existe déjà en base
-                    using (NpgsqlCommand cmdVerif = new NpgsqlCommand(sqlVerifCouleur, this.SqlConn, transaction))
-                    {
-                        cmdVerif.Parameters.AddWithValue("@nom", nomSaisi);
-                        object? resultat = cmdVerif.ExecuteScalar();
-
-                        if (resultat != null && resultat != DBNull.Value)
-                        {
-                            idCouleurFinale = Convert.ToInt32(resultat);
-                        }
-                    }
-
-                    // Si elle n'existe pas (table vide ou nouvelle couleur), on l'insère à la volée
-                    if (idCouleurFinale == 0)
-                    {
-                        using (NpgsqlCommand cmdInsertC = new NpgsqlCommand(sqlInsertCouleur, this.SqlConn, transaction))
-                        {
-                            cmdInsertC.Parameters.AddWithValue("@nom", nomSaisi);
-                            idCouleurFinale = Convert.ToInt32(cmdInsertC.ExecuteScalar()); // récupère la valeur de la clause "RETURNING id_couleur"
-                            nbLignes++;
-                        }
-                    }
-
-                    // On effectue l'insertion finale dans la table de liaison animal_couleur
-                    using (NpgsqlCommand cmdLiaison = new NpgsqlCommand(requeteCouleur, this.SqlConn, transaction))
-                    {
-                        cmdLiaison.Parameters.AddWithValue("@idAnimal", animal.IdAnimal);
-                        cmdLiaison.Parameters.AddWithValue("@idCouleur", idCouleurFinale);
-                        nbLignes += cmdLiaison.ExecuteNonQuery();
-                    }
-                }
-            }
-
-            transaction.Commit();
-            return nbLignes;
+            return Convert.ToInt32(paramNbLignes.Value);
         }
         catch (PostgresException ex) when (ex.SqlState == "23505") // Code d'erreur PostgreSQL pour violation de clé unique (Duplicata)
         {
-            try { transaction.Rollback(); } catch { /* Ignore les erreurs si déjà complétée */ }
             throw new ExceptionAccesBD(requete, $"Impossible d'ajouter l'animal. L'identifiant '{animal.IdAnimal}' existe déjà.");
         }
         catch (Exception ex)
         {
-            try
-            {
-                transaction.Rollback();
-            }
-            catch (Exception)
-            {
-                // Si le rollback échoue (transaction completed), on n'interrompt pas le programme,
-                // on veut garder l'erreur de base 'ex' intacte.
-            }
-
-            // Extraction propre du message pour afficher la cause réelle (ex: colonne introuvable, problème de type)
             string messageReel = ex.Message;
             if (ex.InnerException != null)
                 messageReel += $" -> Cause interne : {ex.InnerException.Message}";
 
-            //throw new ExceptionAccesBD(requete, ex.Message);
-            throw new Exception(ex.Message);
+            throw new Exception(messageReel);
         }
     }
 
@@ -745,141 +568,79 @@ class  AccesBD : IDisposable
 
         NpgsqlConnection connActive = this.SqlConn;
 
-        string requeteContact = @"insert into contact (
-                                                 nom, 
-                                                 prenom, 
-                                                 adresse, 
-                                                 registre_national, 
-                                                 gsm, 
-                                                 telephone, 
-                                                 email
-                                               )
-                                        values (
-                                                 @nom, 
-                                                 @prenom, 
-                                                 ROW(@rue, @cp, @localite)::type_adresse, 
-                                                 @registreNational, 
-                                                 @gsm, 
-                                                 @telephone, 
-                                                 @email
-                                               )
-                                        returning id_contact;"
-        ;
-
-        string requeteVerifRole = "select id_role from roles where lower(nom::text) = lower(@nomRole)";
-        string requeteInsertRole = "insert into roles (nom) values (@nomRole::type_roles) returning id_role;";
-        string requeteLiaisonRole = "insert into roles_contact (id_contact, id_role) values (@idContact, @idRole);";
-
-        int nbLignes = 0;
-
-        using NpgsqlTransaction transaction = connActive.BeginTransaction();
+        string requete = "ajouter_personne_contact";
 
         try
         {
-            int idContactGenere = 0;
+            using NpgsqlCommand sqlCmd = new NpgsqlCommand(requete, this.SqlConn);
+            sqlCmd.CommandType = System.Data.CommandType.StoredProcedure;
 
-            using (NpgsqlCommand sqlCmd = new NpgsqlCommand(requeteContact, connActive, transaction))
+            sqlCmd.Parameters.AddWithValue("p_nom", contact.Nom);
+            sqlCmd.Parameters.AddWithValue("p_prenom", contact.Prenom);
+
+            Adresse adresse = contact.Adresse ?? throw new ArgumentNullException(nameof(contact.Adresse));
+            sqlCmd.Parameters.AddWithValue("p_rue", adresse.Rue);
+            sqlCmd.Parameters.AddWithValue("p_cp", adresse.CodePostal);
+            sqlCmd.Parameters.AddWithValue("p_localite", adresse.Localite);
+            sqlCmd.Parameters.AddWithValue("p_registre_national", contact.RegistreNat);
+            sqlCmd.Parameters.AddWithValue("p_gsm", contact.GSM ?? string.Empty);
+            sqlCmd.Parameters.AddWithValue("p_telephone", contact.Telephone ?? string.Empty);
+            sqlCmd.Parameters.AddWithValue("p_email", contact.Email ?? string.Empty);
+
+            sqlCmd.Parameters.AddWithValue("p_nom_role", role.Nom.ToString().ToLower());
+
+            NpgsqlParameter paramNbLignes = new NpgsqlParameter("p_nb_lignes", NpgsqlTypes.NpgsqlDbType.Integer)
             {
-                sqlCmd.Parameters.AddWithValue("@nom", contact.Nom);
-                sqlCmd.Parameters.AddWithValue("@prenom", contact.Prenom);
+                Direction = System.Data.ParameterDirection.InputOutput,
+                Value = 0
+            };
+            sqlCmd.Parameters.Add(paramNbLignes);
+            sqlCmd.ExecuteNonQuery();
 
-                Adresse adresse = contact.Adresse ?? throw new ArgumentNullException(nameof(contact.Adresse));
-                sqlCmd.Parameters.AddWithValue("@rue", adresse.Rue);
-                sqlCmd.Parameters.AddWithValue("@cp", adresse.CodePostal);
-                sqlCmd.Parameters.AddWithValue("@localite", adresse.Localite);
-
-                sqlCmd.Parameters.AddWithValue("@registreNational", contact.RegistreNat);
-                sqlCmd.Parameters.AddWithValue("@gsm", string.IsNullOrWhiteSpace(contact.GSM) ? DBNull.Value : contact.GSM);
-                sqlCmd.Parameters.AddWithValue("@telephone", string.IsNullOrWhiteSpace(contact.Telephone) ? DBNull.Value : contact.Telephone);
-                sqlCmd.Parameters.AddWithValue("@email", string.IsNullOrWhiteSpace(contact.Email) ? DBNull.Value : contact.Email);
-                
-                idContactGenere = Convert.ToInt32(sqlCmd.ExecuteScalar());
-                nbLignes++;
-            }
-            
-            // Gestion du Rôle en vérifiant ou créant à la volée
-            int idRoleFinal = 0;
-            string nomRoleSaisi = role.Nom.ToString().ToLower();
-
-            // Vérification de l'existence du rôle en base de données
-            using (NpgsqlCommand cmdVerifRole = new NpgsqlCommand(requeteVerifRole, connActive, transaction))
-            {
-                cmdVerifRole.Parameters.AddWithValue("@nomRole", nomRoleSaisi);
-                object? resultat = cmdVerifRole.ExecuteScalar();
-
-                if (resultat != null && resultat != DBNull.Value)
-                {
-                    idRoleFinal = Convert.ToInt32(resultat);
-                }
-            }
-
-            // Création du rôle s'il n'existe pas encore
-            if (idRoleFinal == 0)
-            {
-                using (NpgsqlCommand cmdInsertRole = new NpgsqlCommand(requeteInsertRole, connActive, transaction))
-                {
-                    cmdInsertRole.Parameters.AddWithValue("@nomRole", nomRoleSaisi);
-                    idRoleFinal = Convert.ToInt32(cmdInsertRole.ExecuteScalar());
-                    nbLignes++;
-                }
-            }
-
-            // Liaison dans la table d'association roles_contact
-            using (NpgsqlCommand cmdLiaison = new NpgsqlCommand(requeteLiaisonRole, connActive, transaction))
-            {
-                cmdLiaison.Parameters.AddWithValue("@idContact", idContactGenere);
-                cmdLiaison.Parameters.AddWithValue("@idRole", idRoleFinal);
-
-                nbLignes += cmdLiaison.ExecuteNonQuery();
-            }
-            
-            transaction.Commit();
-            return nbLignes;
+            return Convert.ToInt32(paramNbLignes.Value);
         }
         catch (Exception ex)
         {
-            try
-            {
-                transaction.Rollback();
-            }
-            catch (Exception)
-            {
-                // Ignore l'échec du rollback si PostgreSQL a déjà coupé la transaction de son côté
-            }
-
             string messageReel = ex.Message;
             if (ex.InnerException != null)
             {
                 messageReel += $" -> Cause interne : {ex.InnerException.Message}";
             }
 
-            throw new ExceptionAccesBD(messageReel, requeteContact);
+            throw new ExceptionAccesBD(messageReel, requete);
         }
     }
 
     public int AjouterAdoption (Adoption adoption)
     {
         ArgumentNullException.ThrowIfNull(adoption);
-                                       
-        string requete = @"insert into adoption (statut, dateAdoption, id_animal, id_contact) 
-                                       values (@statut::statut_adoption, @dateAdoption, @idAnimal, @idContact);"
-        ;
-
+        
         if (this.SqlConn == null)
             throw new InvalidOperationException("Connexion non initialisée.");
+
+        string requete = "ajouter_adoption";
 
         try
         {
             using NpgsqlCommand sqlCmd = new NpgsqlCommand(requete, this.SqlConn);
+            sqlCmd.CommandType = System.Data.CommandType.StoredProcedure;
 
             // Ajout des paramètres
-            sqlCmd.Parameters.AddWithValue("@statut", adoption.Statut.ToString().ToLower());
-            sqlCmd.Parameters.AddWithValue("@dateAdoption", adoption.DateAdoption);
-            sqlCmd.Parameters.AddWithValue("@idAnimal", adoption.IdAnimal);
-            sqlCmd.Parameters.AddWithValue("@idContact", adoption.IdContact);
+            sqlCmd.Parameters.AddWithValue("p_statut", adoption.Statut.ToString().ToLower());
+            sqlCmd.Parameters.AddWithValue("p_date_adoption", adoption.DateAdoption);
+            sqlCmd.Parameters.AddWithValue("p_id_animal", adoption.IdAnimal);
+            sqlCmd.Parameters.AddWithValue("p_id_contact", adoption.IdContact);
 
-            // Exécution de la requête afin d'insérer dans la BD (1 si succès)
-            return sqlCmd.ExecuteNonQuery();
+            NpgsqlParameter paramNbLignes = new NpgsqlParameter("p_nb_lignes", NpgsqlTypes.NpgsqlDbType.Integer)
+            {
+                Direction = System.Data.ParameterDirection.InputOutput,
+                Value = 0
+            };
+
+            sqlCmd.Parameters.Add(paramNbLignes);
+            sqlCmd.ExecuteNonQuery();
+
+            return Convert.ToInt32(paramNbLignes.Value);
         }
         catch (Exception ex)
         {
@@ -891,20 +652,29 @@ class  AccesBD : IDisposable
     {
         ArgumentNullException.ThrowIfNull(vaccin);
 
-        string requete = "insert into vaccin (nom) values (@nom);";
-
         if (this.SqlConn == null)
             throw new InvalidOperationException("Connexion non initialisée.");
+
+        string requete = "ajouter_vaccin";
 
         try
         {
             using NpgsqlCommand sqlCmd = new NpgsqlCommand(requete, this.SqlConn);
+            sqlCmd.CommandType = System.Data.CommandType.StoredProcedure;
 
             // Ajout des paramètres de l'objet Vaccin
-            sqlCmd.Parameters.AddWithValue("@nom", vaccin.NomVaccin);
+            sqlCmd.Parameters.AddWithValue("p_nom", vaccin.NomVaccin);
 
-            // Exécution de la requête afin d'insérer dans la BD
-            return sqlCmd.ExecuteNonQuery();
+            NpgsqlParameter paramNbLignes = new NpgsqlParameter("p_nb_lignes", NpgsqlTypes.NpgsqlDbType.Integer)
+            {
+                Direction = System.Data.ParameterDirection.InputOutput,
+                Value = 0
+            };
+
+            sqlCmd.Parameters.Add(paramNbLignes);
+            sqlCmd.ExecuteNonQuery();
+
+            return Convert.ToInt32(paramNbLignes.Value);
         }
         catch (Exception ex)
         {
@@ -916,35 +686,32 @@ class  AccesBD : IDisposable
     {
         ArgumentNullException.ThrowIfNull(accueil);
 
-        string requete = @"insert into accueil (
-                                                    date_debut, 
-                                                    date_fin, 
-                                                    id_animal, 
-                                                    id_contact
-                                               )
-                                       values  (
-                                                    @dateDebut,
-                                                    @dateFin,
-                                                    @idAnimal,
-                                                    @idContact
-                                               );"
-        ;
-
         if (this.SqlConn == null)
             throw new InvalidOperationException("Connexion non initialisée.");
+
+        string requete = "ajouter_famille_accueil_ani";
 
         try
         {
             using NpgsqlCommand sqlCmd = new NpgsqlCommand(requete, this.SqlConn);
+            sqlCmd.CommandType = System.Data.CommandType.StoredProcedure;
 
             // Ajout des paramètres de Accueil
-            sqlCmd.Parameters.AddWithValue("@dateDebut", accueil.DateDebut);
-            sqlCmd.Parameters.AddWithValue("@dateFin", accueil.DateFin.HasValue ? accueil.DateFin.Value : DBNull.Value);
-            sqlCmd.Parameters.AddWithValue("@idAnimal", accueil.IdAnimal);
-            sqlCmd.Parameters.AddWithValue("@idContact", accueil.IdContact);
+            sqlCmd.Parameters.AddWithValue("p_date_debut", accueil.DateDebut);
+            sqlCmd.Parameters.AddWithValue("p_date_fin", (object?)accueil.DateFin ?? DBNull.Value);
+            sqlCmd.Parameters.AddWithValue("p_id_animal", accueil.IdAnimal);
+            sqlCmd.Parameters.AddWithValue("p_id_contact", accueil.IdContact);
 
-            // Exécution de la requête afin d'insérer dans la BD
-            return sqlCmd.ExecuteNonQuery();
+            NpgsqlParameter paramNbLignes = new NpgsqlParameter("p_nb_lignes", NpgsqlTypes.NpgsqlDbType.Integer)
+            {
+                Direction = System.Data.ParameterDirection.InputOutput,
+                Value = 0
+            };
+
+            sqlCmd.Parameters.Add(paramNbLignes);
+            sqlCmd.ExecuteNonQuery();
+
+            return Convert.ToInt32(paramNbLignes.Value);
         }
         catch (Exception ex)
         {
@@ -956,18 +723,28 @@ class  AccesBD : IDisposable
     {
         ArgumentNullException.ThrowIfNull(animal);
 
-        string requete = "delete from animal where id_animal = @idAnimal;";
-
         if (this.SqlConn == null)
             throw new InvalidOperationException("Connexion non initialisée.");
+
+        string requete = "supprimer_animal";
 
         try
         {
             using NpgsqlCommand sqlCmd = new NpgsqlCommand(requete, this.SqlConn);
-            sqlCmd.Parameters.AddWithValue("@idAnimal", animal.IdAnimal);
+            sqlCmd.CommandType = System.Data.CommandType.StoredProcedure;
+            sqlCmd.Parameters.AddWithValue("p_id_animal", animal.IdAnimal);
+
+            NpgsqlParameter paramNbLignes = new NpgsqlParameter("p_nb_lignes", NpgsqlTypes.NpgsqlDbType.Integer)
+            {
+                Direction = System.Data.ParameterDirection.InputOutput,
+                Value = 0
+            };
+
+            sqlCmd.Parameters.Add(paramNbLignes);
+            sqlCmd.ExecuteNonQuery();
 
             // Renvoie 1 si l'animal (et ses cascades) ont été supprimés, 0 s'il n'existait pas
-            return sqlCmd.ExecuteNonQuery();
+            return Convert.ToInt32(paramNbLignes.Value);
         }
         catch (Exception ex)
         {
@@ -979,18 +756,27 @@ class  AccesBD : IDisposable
     {
         ArgumentNullException.ThrowIfNull(contact);
 
-        string requete = "delete from contact where id_contact = @idContact;";
-
         if (this.SqlConn == null)
             throw new InvalidOperationException("Connexion non initialisée.");
+
+        string requete = "supprimer_personne_contact";
 
         try
         {
             using NpgsqlCommand sqlCmd = new NpgsqlCommand(requete, this.SqlConn);
-            sqlCmd.Parameters.AddWithValue("@idContact", contact.IdContact);
+            sqlCmd.CommandType = System.Data.CommandType.StoredProcedure;
+            sqlCmd.Parameters.AddWithValue("p_id_contact", contact.IdContact);
 
-            // Renvoie 1 si l'animal (et ses cascades) ont été supprimés, 0 s'il n'existait pas
-            return sqlCmd.ExecuteNonQuery();
+            NpgsqlParameter paramNbLignes = new NpgsqlParameter("p_nb_lignes", NpgsqlTypes.NpgsqlDbType.Integer)
+            {
+                Direction = System.Data.ParameterDirection.InputOutput,
+                Value = 0
+            };
+
+            sqlCmd.Parameters.Add(paramNbLignes);
+            sqlCmd.ExecuteNonQuery();
+
+            return Convert.ToInt32(paramNbLignes.Value);
         }
         catch (Exception ex)
         {
@@ -1002,42 +788,39 @@ class  AccesBD : IDisposable
     {
         ArgumentNullException.ThrowIfNull(contact);
 
-        string requete = @"update contact 
-                           set nom = @nom, 
-                               prenom = @prenom, 
-                               adresse = ROW(@rue, @cp, @localite)::type_adresse, 
-                               registre_national = @registreNational, 
-                               gsm = @gsm, 
-                               telephone = @telephone, 
-                               email = @email 
-                           where id_contact = @idContact;"
-        ;
-
         if (this.SqlConn == null)
             throw new InvalidOperationException("Connexion non initialisée.");
+
+        string requete = "modifier_coordonnees_contact";
 
         try
         {
             using NpgsqlCommand sqlCmd = new NpgsqlCommand(requete, this.SqlConn);
-
-            sqlCmd.Parameters.AddWithValue("@idContact", contact.IdContact);
-            sqlCmd.Parameters.AddWithValue("@nom", contact.Nom);
-            sqlCmd.Parameters.AddWithValue("@prenom", contact.Prenom);
+            sqlCmd.CommandType = System.Data.CommandType.StoredProcedure;
+            sqlCmd.Parameters.AddWithValue("p_id_contact", contact.IdContact);
+            sqlCmd.Parameters.AddWithValue("p_nom", contact.Nom);
+            sqlCmd.Parameters.AddWithValue("p_prenom", contact.Prenom);
 
             Adresse adresse = contact.Adresse ?? throw new ArgumentNullException(nameof(contact.Adresse));
-            sqlCmd.Parameters.AddWithValue("@rue", adresse.Rue);
-            sqlCmd.Parameters.AddWithValue("@cp", adresse.CodePostal);
-            sqlCmd.Parameters.AddWithValue("@localite", adresse.Localite);
+            sqlCmd.Parameters.AddWithValue("p_rue", adresse.Rue);
+            sqlCmd.Parameters.AddWithValue("p_cp", adresse.CodePostal);
+            sqlCmd.Parameters.AddWithValue("p_localite", adresse.Localite);
 
-            sqlCmd.Parameters.AddWithValue("@registreNational", contact.RegistreNat);
-            sqlCmd.Parameters.AddWithValue("@gsm", string.IsNullOrWhiteSpace(contact.GSM) ? DBNull.Value : contact.GSM);
-            sqlCmd.Parameters.AddWithValue("@telephone", string.IsNullOrWhiteSpace(contact.Telephone) ? DBNull.Value : contact.Telephone);
-            sqlCmd.Parameters.AddWithValue("@email", string.IsNullOrWhiteSpace(contact.Email) ? DBNull.Value : contact.Email);
+            sqlCmd.Parameters.AddWithValue("p_registre_national", contact.RegistreNat);
+            sqlCmd.Parameters.AddWithValue("p_gsm", contact.GSM ?? string.Empty);
+            sqlCmd.Parameters.AddWithValue("p_telephone", contact.Telephone ?? string.Empty);
+            sqlCmd.Parameters.AddWithValue("p_email", contact.Email ?? string.Empty);
 
-            // Exécution de la mise à jour et récupération du nombre de lignes modifiées
-            int lignesModifiees = sqlCmd.ExecuteNonQuery();
+            NpgsqlParameter paramNbLignes = new NpgsqlParameter("p_nb_lignes", NpgsqlTypes.NpgsqlDbType.Integer)
+            {
+                Direction = System.Data.ParameterDirection.InputOutput,
+                Value = 0
+            };
 
-            return lignesModifiees; // Retourne 1 si la modification a réussi, 0 sinon.
+            sqlCmd.Parameters.Add(paramNbLignes);
+            sqlCmd.ExecuteNonQuery();
+
+            return Convert.ToInt32(paramNbLignes.Value);
         }
         catch (Exception ex)
         {
@@ -1050,24 +833,32 @@ class  AccesBD : IDisposable
         ArgumentNullException.ThrowIfNull(animal);
         ArgumentNullException.ThrowIfNull(contact);
 
-        // Requête UPDATE ciblant la clé primaire composite (id_animal + id_contact)
-        string requete = @"update adoption 
-                           set statut = @statut::statut_adoption 
-                           where id_animal = @idAnimal and id_contact = @idContact;";
 
         if (this.SqlConn == null)
             throw new InvalidOperationException("Connexion non initialisée.");
 
+        string requete = "modifier_statut_adoption";
+
         try
         {
             using NpgsqlCommand sqlCmd = new NpgsqlCommand(requete, this.SqlConn);
+            sqlCmd.CommandType = System.Data.CommandType.StoredProcedure;
 
             // Identification de l'adoption à modifier
-            sqlCmd.Parameters.AddWithValue("@idAnimal", animal.IdAnimal);
-            sqlCmd.Parameters.AddWithValue("@idContact", contact.IdContact);
-            sqlCmd.Parameters.AddWithValue("@statut", nouveauStatut.ToString().ToLower());
+            sqlCmd.Parameters.AddWithValue("p_id_animal", animal.IdAnimal);
+            sqlCmd.Parameters.AddWithValue("p_id_contact", contact.IdContact);
+            sqlCmd.Parameters.AddWithValue("p_statut", nouveauStatut.ToString().ToLower());
 
-            return sqlCmd.ExecuteNonQuery();
+            NpgsqlParameter paramNbLignes = new NpgsqlParameter("p_nb_lignes", NpgsqlTypes.NpgsqlDbType.Integer)
+            {
+                Direction = System.Data.ParameterDirection.InputOutput,
+                Value = 0
+            };
+            
+            sqlCmd.Parameters.Add(paramNbLignes);
+            sqlCmd.ExecuteNonQuery();
+
+            return Convert.ToInt32(paramNbLignes.Value);
         }
         catch (Exception ex)
         {
@@ -1082,97 +873,46 @@ class  AccesBD : IDisposable
         if (this.SqlConn == null)
             throw new InvalidOperationException("Connexion non initialisée.");
 
-        NpgsqlConnection connActive = this.SqlConn;
+#pragma warning disable CS0618 // Configuration obligatoire de Npgsql pour lier la classe/structure anonyme C# au TYPE SQL
+#pragma warning restore CS0618 // Npgsql Connection obsolète pour le mapping global, mais fonctionne sur une instance active :
 
-        // Requête UPDATE ciblant la clé primaire id_animal
-        string requete = @"update animal 
-                           set description = @description,
-                               particularites = @particularites
-                           where id_animal = @idAnimal;"
-        ;
-
-        string sqlVerifComp = "select id_compatibilite from compatibilite where animal = @animal::type_animal";
-        string sqlInsertComp = "insert into compatibilite (animal) values (@animal::type_animal) returning id_compatibilite";
-        string sqlInsertLiaison = @"insert into animal_compatibilite (id_animal, id_compatibilite, valeur, description) 
-                                values (@idAnimal, @idCompatibilite, @valeur::type_valeur, @descriptionComp)
-                                on conflict (id_animal, id_compatibilite) do nothing;";
-
-        int nbLignes = 0;
-
-        using NpgsqlTransaction transaction = connActive.BeginTransaction();
+        string requete = "ajouter_info_animal";
 
         try 
         {
-            // A. Mise à jour de la description et des particularités
-            using (NpgsqlCommand sqlCmd = new NpgsqlCommand(requete, connActive, transaction))
+            using NpgsqlCommand sqlCmd = new NpgsqlCommand(requete, this.SqlConn);
+            sqlCmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+            sqlCmd.Parameters.AddWithValue("p_id_animal", animal.IdAnimal);
+            sqlCmd.Parameters.AddWithValue("p_desc", desc ?? string.Empty);
+            sqlCmd.Parameters.AddWithValue("p_partic", partic ?? string.Empty);
+
+            var tableauComp = animal.ListeCompatibilites?
+            .Where(ac => ac.Compatibilite != null)
+            .Select(ac => new {
+                type_animal_cible = ac.Compatibilite!.Type.ToString().ToLower(),
+                valeur_statut = ac.Valeur.ToString().ToLower(),
+                description_texte = ac.Description ?? string.Empty
+            }).ToArray() ?? Array.Empty<object>();
+
+            sqlCmd.Parameters.AddWithValue("p_liste_compatibilites", tableauComp);
+
+            NpgsqlParameter paramNbLignes = new NpgsqlParameter("p_nb_lignes", NpgsqlTypes.NpgsqlDbType.Integer)
             {
-                sqlCmd.Parameters.AddWithValue("@idAnimal", animal.IdAnimal.Trim());
-                sqlCmd.Parameters.AddWithValue("@description", string.IsNullOrWhiteSpace(desc) ? DBNull.Value : desc);
-                sqlCmd.Parameters.AddWithValue("@particularites", string.IsNullOrWhiteSpace(partic) ? DBNull.Value : partic);
+                Direction = System.Data.ParameterDirection.InputOutput,
+                Value = 0
+            };
+            sqlCmd.Parameters.Add(paramNbLignes);
 
-                nbLignes += sqlCmd.ExecuteNonQuery();
-            }
+            sqlCmd.ExecuteNonQuery();
 
-            // B. Gestion des compatibilités à travers la classe d'association AnimalCompatibilite
-            if (nbLignes > 0 && animal.ListeCompatibilites != null && animal.ListeCompatibilites.Count > 0)
-            {
-                foreach (AnimalCompatibilite ac in animal.ListeCompatibilites)
-                {
-                    if (ac.Compatibilite == null) continue;
-
-                    int idCompFinale = 0;
-                    string typeCompTexte = ac.Compatibilite.Type.ToString().ToLower();
-
-                    // Vérification dans le dictionnaire
-                    using (NpgsqlCommand cmdVerif = new NpgsqlCommand(sqlVerifComp, connActive, transaction))
-                    {
-                        cmdVerif.Parameters.AddWithValue("@animal", typeCompTexte);
-                        object? resultat = cmdVerif.ExecuteScalar();
-                        if (resultat != null && resultat != DBNull.Value)
-                        {
-                            idCompFinale = Convert.ToInt32(resultat);
-                        }
-                    }
-
-                    // Insertion si manquante
-                    if (idCompFinale == 0)
-                    {
-                        using (NpgsqlCommand cmdInsertC = new NpgsqlCommand(sqlInsertComp, connActive, transaction))
-                        {
-                            cmdInsertC.Parameters.AddWithValue("@animal", typeCompTexte);
-                            idCompFinale = Convert.ToInt32(cmdInsertC.ExecuteScalar());
-                            nbLignes++;
-                        }
-                    }
-
-                    // Liaison pivot directe (utilisation de la variable sqlInsertLiaison nettoyée)
-                    using (NpgsqlCommand cmdLiaison = new NpgsqlCommand(sqlInsertLiaison, connActive, transaction))
-                    {
-                        cmdLiaison.Parameters.AddWithValue("@idAnimal", animal.IdAnimal.Trim());
-                        cmdLiaison.Parameters.AddWithValue("@idCompatibilite", idCompFinale);
-
-                        string valeurEnumTexte = ac.Valeur.ToString().ToLower();
-                        cmdLiaison.Parameters.AddWithValue("@valeur", valeurEnumTexte);
-
-                        cmdLiaison.Parameters.AddWithValue("@descriptionComp", string.IsNullOrWhiteSpace(ac.Description) ? DBNull.Value : ac.Description);
-
-                        nbLignes += cmdLiaison.ExecuteNonQuery();
-                    }
-                }
-            }
-
-            transaction.Commit();
-            return nbLignes;
+            return Convert.ToInt32(paramNbLignes.Value);
         }
         catch (Exception ex) 
         {
-            try { transaction.Rollback(); } catch (Exception) { }
-
             string messageReel = ex.Message;
             if (ex.InnerException != null)
-            {
                 messageReel += $" -> Cause interne : {ex.InnerException.Message}";
-            }
 
             throw new ExceptionAccesBD(messageReel, requete);
         }
@@ -1182,23 +922,28 @@ class  AccesBD : IDisposable
     {
         ArgumentNullException.ThrowIfNull(animal);
 
-        string requete = @"update animal 
-                           set compatiblite = null,
-                               description = null,
-                               particularite = null
-                           where id_animal = @idAnimal;"
-        ;
-
         if (this.SqlConn == null)
             throw new InvalidOperationException("Connexion non initialisée.");
+
+        string requete = "supprimer_info_animal";
 
         try
         {
             using NpgsqlCommand sqlCmd = new NpgsqlCommand(requete, this.SqlConn);
-            sqlCmd.Parameters.AddWithValue("@idAnimal", animal.IdAnimal);
+            sqlCmd.CommandType = System.Data.CommandType.StoredProcedure;
+            sqlCmd.Parameters.AddWithValue("p_id_animal", animal.IdAnimal);
+
+            NpgsqlParameter paramNbLignes = new NpgsqlParameter("p_nb_lignes", NpgsqlTypes.NpgsqlDbType.Integer)
+            {
+                Direction = System.Data.ParameterDirection.InputOutput,
+                Value = 0
+            };
+
+            sqlCmd.Parameters.Add(paramNbLignes);
+            sqlCmd.ExecuteNonQuery();
 
             // Renvoie 1 si l'animal a été trouvé et nettoyé, 0 s'il n'existait pas
-            return sqlCmd.ExecuteNonQuery();
+            return Convert.ToInt32(paramNbLignes.Value);
         }
         catch (Exception ex)
         {
@@ -1208,16 +953,16 @@ class  AccesBD : IDisposable
 
     public bool ExisteAnimal (string idAnimal)
     {
-        string requete = "select exists(select 1 from animal where id_animal = @idAnimal);";
-
         if (this.SqlConn == null)
             throw new InvalidOperationException("Connexion non initialisée.");
+
+        string requete = "existe_animal";
 
         try 
         {
             using NpgsqlCommand sqlCmd = new NpgsqlCommand(requete, this.SqlConn);
-            sqlCmd.Parameters.AddWithValue("@idAnimal", idAnimal);
-            //using NpgsqlDataReader sqlReader = sqlCmd.ExecuteReader();
+            sqlCmd.CommandType = System.Data.CommandType.StoredProcedure;
+            sqlCmd.Parameters.AddWithValue("p_id_animal", idAnimal);
 
             return Convert.ToBoolean(sqlCmd.ExecuteScalar());
         }
@@ -1230,21 +975,17 @@ class  AccesBD : IDisposable
     
     public bool ExistePersonneContact (int idContact) 
     {
-        string requete = @"select exists(
-                                select 1
-                                from contact 
-                                where id_contact = @idContact
-                         );"
-;
-
         if (this.SqlConn == null)
             throw new InvalidOperationException("Connexion non initialisée.");
+
+        string requete = "existe_personne_contact";
 
         try
         {
             using NpgsqlCommand sqlCmd = new NpgsqlCommand(requete, this.SqlConn);
-            sqlCmd.Parameters.AddWithValue("@idContact", idContact);
-            
+            sqlCmd.CommandType = System.Data.CommandType.StoredProcedure;
+            sqlCmd.Parameters.AddWithValue("p_id_contact", idContact);
+
             object? resultat = sqlCmd.ExecuteScalar();
 
             return resultat != null && Convert.ToBoolean(resultat);
@@ -1257,16 +998,17 @@ class  AccesBD : IDisposable
     
     public bool ExisteAdoption (string idAnimal, int idContact) 
     {
-        string requete = "select exists(select 1 from adoption where id_animal = @idAnimal and id_contact = @idContact);";
-
         if (this.SqlConn == null)
             throw new InvalidOperationException("Connexion non initialisée.");
+
+        string requete = "existe_adoption";
 
         try
         {
             using NpgsqlCommand sqlCmd = new NpgsqlCommand(requete, this.SqlConn);
-            sqlCmd.Parameters.AddWithValue("@idAnimal", string.IsNullOrWhiteSpace(idAnimal) ? (object)DBNull.Value : idAnimal);
-            sqlCmd.Parameters.AddWithValue("@idContact", idContact);
+            sqlCmd.CommandType = System.Data.CommandType.StoredProcedure;
+            sqlCmd.Parameters.AddWithValue("p_id_animal", string.IsNullOrWhiteSpace(idAnimal) ? (object)DBNull.Value : idAnimal);
+            sqlCmd.Parameters.AddWithValue("p_id_contact", idContact);
 
             return Convert.ToBoolean(sqlCmd.ExecuteScalar());
         }
@@ -1278,16 +1020,18 @@ class  AccesBD : IDisposable
 
     public bool ExisteFamilleAccueilAnimal (string idAnimal, int idContact)
     {
-        string requete = "select exists(select 1 from accueil where id_animal = @idAnimal and id_contact = @idContact);";
-
         if (this.SqlConn == null)
             throw new InvalidOperationException("Connexion non initialisée.");
+
+        string requete = "existe_famille_accueil_animal";
 
         try
         {
             using NpgsqlCommand sqlCmd = new NpgsqlCommand(requete, this.SqlConn);
-            sqlCmd.Parameters.AddWithValue("@idAnimal", string.IsNullOrWhiteSpace(idAnimal) ? (object)DBNull.Value : idAnimal);
-            sqlCmd.Parameters.AddWithValue("@idContact", idContact);
+            sqlCmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+            sqlCmd.Parameters.AddWithValue("p_id_animal", string.IsNullOrWhiteSpace(idAnimal) ? (object)DBNull.Value : idAnimal);
+            sqlCmd.Parameters.AddWithValue("p_id_contact", idContact);
 
             return Convert.ToBoolean(sqlCmd.ExecuteScalar());
         }
@@ -1299,16 +1043,17 @@ class  AccesBD : IDisposable
 
     public bool ExisteVaccin (int idVaccin, string nom) 
     {
-        string requete = "select exists(select 1 from vaccin where id_vaccin = @idVaccin and nom = @nom);";
-
         if (this.SqlConn == null)
             throw new InvalidOperationException("Connexion non initialisée.");
+
+        string requete = "existe_vaccin";
 
         try
         {
             using NpgsqlCommand sqlCmd = new NpgsqlCommand(requete, this.SqlConn);
-            sqlCmd.Parameters.AddWithValue("@idVaccin", idVaccin);
-            sqlCmd.Parameters.AddWithValue("@nom", string.IsNullOrWhiteSpace(nom) ? (object)DBNull.Value : nom);
+            sqlCmd.CommandType = System.Data.CommandType.StoredProcedure;
+            sqlCmd.Parameters.AddWithValue("p_id_vaccin", idVaccin);
+            sqlCmd.Parameters.AddWithValue("p_nom", string.IsNullOrWhiteSpace(nom) ? (object)DBNull.Value : nom);
 
             return Convert.ToBoolean(sqlCmd.ExecuteScalar());
         }
@@ -1320,18 +1065,19 @@ class  AccesBD : IDisposable
 
     public int CompterAnimauxParDateEntree(DateOnly dateEntree)
     {
-        string requete = "select count(*) from entree where date_entree = @dateEntree";
-
         if (this.SqlConn == null)
             throw new InvalidOperationException("Connexion non initialisée.");
-        
+
+        string requete = "compter_animaux_par_date_entree";
+
         try
         {
             using NpgsqlCommand sqlCmd = new NpgsqlCommand(requete, this.SqlConn);
-            sqlCmd.Parameters.AddWithValue("@dateEntree", dateEntree);
-            
+            sqlCmd.CommandType = System.Data.CommandType.StoredProcedure;
+            sqlCmd.Parameters.AddWithValue("p_date_entree", dateEntree);
+
             int nbAnimaux = Convert.ToInt32(sqlCmd.ExecuteScalar());
-            
+
             return nbAnimaux;
         }
         catch (ExceptionAccesBD ex)

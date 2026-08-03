@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "SA3HfuX/+dY=",
+  "dgSpecHash": "iBpJr09VyXw=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Millet\\Documents\\IPEPS\\Bloc 3\\Projet de développement SGBD\\Travaux\\Travail2\\Projet_Developpement-SGBD\\Travail 2_partie-2\\RefugeAnimaux\\RefugeAnimaux\\RefugeAnimaux.csproj",
+  "projectFilePath": "C:\\Users\\Millet\\Documents\\IPEPS\\Bloc 3\\Projet de développement SGBD\\Travaux\\Travail2\\SGBD\\Travail 2_partie-2\\RefugeAnimaux\\RefugeAnimaux\\RefugeAnimaux.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Millet\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\8.0.0\\microsoft.extensions.dependencyinjection.abstractions.8.0.0.nupkg.sha512",
     "C:\\Users\\Millet\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\8.0.0\\microsoft.extensions.logging.abstractions.8.0.0.nupkg.sha512",

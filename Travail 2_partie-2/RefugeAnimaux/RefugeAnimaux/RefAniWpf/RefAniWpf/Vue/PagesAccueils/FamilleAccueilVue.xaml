@@ -1,0 +1,67 @@
+﻿<UserControl x:Class="RefAniWpf.Vue.PagesAccueils.FamilleAccueilVue"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:RefAniWpf.Vue.PagesAccueils"
+             mc:Ignorable="d"
+             Background="white"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <TabControl Margin="15">
+        <!-- Onglet 1 : Affectation -->
+        <TabItem Header="🏡 Enregistrer un Accueil">
+            <StackPanel Margin="20" MaxWidth="450" HorizontalAlignment="Left">
+                <TextBlock Text="Héberger un animal en famille d'accueil" FontSize="18" FontWeight="Bold" Margin="0,0,0,20"/>
+                <Label Content="Animal à accueillir :"/>
+                <ComboBox ItemsSource="{Binding ListeAnimaux}" SelectedItem="{Binding AnimalSelectionne}" DisplayMemberPath="NomAnimal" Height="32" Margin="0,0,0,15"/>
+                <Label Content="Famille d'accueil (Contact) :"/>
+                <ComboBox ItemsSource="{Binding ListeFamilles}" SelectedItem="{Binding FamilleSelectionne}" DisplayMemberPath="Nom" Height="32" Margin="0,0,0,20"/>
+                <Button Content="💾 Valider le placement" Command="{Binding EnregistrerAccueilCommand}" Background="#2ECC71" Foreground="White" FontWeight="Bold" Height="35" BorderThickness="0"/>
+            </StackPanel>
+        </TabItem>
+
+        <!-- Onglet 2 : Liste par Animal -->
+        <TabItem Header="🐕 Historique par Animal">
+            <Grid Margin="15">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
+                    <Label Content="Sélectionner l'animal :" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                    <ComboBox ItemsSource="{Binding ListeAnimaux}" SelectedItem="{Binding AnimalFiltre}" DisplayMemberPath="NomAnimal" Width="200" Height="32"/>
+                </StackPanel>
+                <DataGrid Grid.Row="1" ItemsSource="{Binding HistoriqueFamillesParAnimal}" AutoGenerateColumns="False" IsReadOnly="True" RowHeight="32">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Nom de la Famille" Binding="{Binding FamilleAccueil.Nom}" Width="*"/>
+                        <DataGridTextColumn Header="Prénom" Binding="{Binding FamilleAccueil.Prenom}" Width="*"/>
+                        <DataGridTextColumn Header="Date de Début" Binding="{Binding DateDebut, StringFormat={}{0:dd/MM/yyyy}}" Width="150"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </TabItem>
+
+        <!-- Onglet 3 : Liste par Famille -->
+        <TabItem Header="👤 Animaux par Famille">
+            <Grid Margin="15">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
+                    <Label Content="Sélectionner la famille :" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                    <ComboBox ItemsSource="{Binding ListeFamilles}" 
+                              SelectedItem="{Binding FamilleFiltre, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                              DisplayMemberPath="Nom" Width="200" Height="32"/>
+                </StackPanel>
+                <DataGrid Grid.Row="1" ItemsSource="{Binding HistoriqueAnimauxParFamille}" 
+                          AutoGenerateColumns="False" IsReadOnly="True" RowHeight="32">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Identifiant Animal" Binding="{Binding IdAnimal}" Width="150"/>
+                        <DataGridTextColumn Header="Nom de l'Animal" Binding="{Binding NomAnimal}" Width="*"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </TabItem>
+    </TabControl>
+</UserControl>

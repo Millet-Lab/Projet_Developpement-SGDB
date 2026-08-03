@@ -1,0 +1,23 @@
+﻿<UserControl x:Class="RefAniWpf.Vue.PagesAnimaux.SupprimerAnimalVue"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:RefAniWpf.Vue.PagesAnimaux"
+             mc:Ignorable="d"
+             Background="White"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <StackPanel Margin="20" MaxWidth="500" HorizontalAlignment="Left">
+        <TextBlock Text="🗑️ Supprimer un animal" FontSize="22" FontWeight="Bold" Foreground="#2C3E50" Margin="0,0,0,5"/>
+        <TextBlock Text="Sélectionnez un animal pour le retirer définitivement de la base des données." FontSize="12" Foreground="#7F8C8D" Margin="0,0,0,25"/>
+
+        <Border Background="#FFF5F5" BorderBrush="#FEB2B2" BorderThickness="1" Padding="15" CornerRadius="5" Margin="0,0,0,20">
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Animal à supprimer :" FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,15,0" Foreground="#C53030"/>
+                <ComboBox ItemsSource="{Binding ListeAnimaux}" SelectedItem="{Binding AnimalSelectionne}" DisplayMemberPath="NomAnimal" Width="250" Height="32" VerticalContentAlignment="Center"/>
+            </StackPanel>
+        </Border>
+
+        <Button Content="🗑️ Supprimer définitivement" Command="{Binding SupprimerCommand}" Width="200" Height="35" Background="#D63031" Foreground="White" FontWeight="Bold" BorderThickness="0" HorizontalAlignment="Right"/>
+    </StackPanel>
+</UserControl>

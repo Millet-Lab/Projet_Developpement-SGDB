@@ -1,0 +1,56 @@
+﻿<UserControl x:Class="RefAniWpf.Vue.PagesAdoptions.ListerAdoptionsVue"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:RefAniWpf.Vue.PagesAdoptions"
+             mc:Ignorable="d"
+             Background="white"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Margin="20">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="280"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Colonne Gauche : Tableau d'affichage -->
+        <Grid Grid.Column="0" Margin="0,0,20,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0" Margin="0,0,0,15">
+                <TextBlock Text="📜 Registre et Statuts des Adoptions" FontSize="20" FontWeight="Bold" Foreground="#2C3E50" Margin="0,0,0,5"/>
+                <TextBlock Text="Sélectionnez la ligne d'adoption à modifier (statut)" FontSize="12" Foreground="#7F8C8D"/>
+            </StackPanel>
+
+            <DataGrid Grid.Row="1" 
+                      ItemsSource="{Binding ListeAdoptions}" 
+                      SelectedItem="{Binding AdoptionSelectionne, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                      AutoGenerateColumns="False"
+                      IsReadOnly="True" 
+                      Background="White" 
+                      RowHeight="32"
+                      ColumnWidth="*">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID Contact" Binding="{Binding IdContact}" Width="70"/>
+                    <DataGridTextColumn Header="Animal" Binding="{Binding AnimalAdopte.NomAnimal}" Width="90"/>
+                    <DataGridTextColumn Header="Nom Contact" Binding="{Binding Adoptant.Nom}" Width="100"/>
+                    <DataGridTextColumn Header="Prénom Contact" Binding="{Binding Adoptant.Prenom}" Width="100"/>
+                    <DataGridTextColumn Header="Date Demande" Binding="{Binding DateAdoption, StringFormat={}{0:dd/MM/yyyy}}" Width="100"/>
+                    <DataGridTextColumn Header="Statut" Binding="{Binding Statut}" Width="*" FontWeight="Bold"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
+        <!-- Colonne Droite : Panneau de modification rapide de statut -->
+        <Border Grid.Column="1" Background="#F8F9FA" Padding="20" CornerRadius="5" BorderBrush="#E2E8F0" BorderThickness="1" VerticalAlignment="Top" Margin="0,55,0,0">
+            <StackPanel>
+                <TextBlock Text="⚙️ Action : Modifier le Statut" FontSize="14" FontWeight="Bold" Foreground="#34495E" Margin="0,0,0,15"/>
+                <Label Content="Choisir l'état :" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                <ComboBox ItemsSource="{Binding ChoixStatuts}" SelectedItem="{Binding StatutSelectionne, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="32" Margin="0,0,0,20"/>
+                <Button Content="💾 Appliquer l'état" Command="{Binding AppliquerStatutCommand}" Background="#2ECC71" Foreground="White" FontWeight="Bold" Height="35" BorderThickness="0"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>
